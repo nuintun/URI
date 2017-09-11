@@ -29,19 +29,19 @@
             context.hostname = hostname;
             context.port = port;
             context.pathname = pathname;
-            context.query = parse(search.slice(1));
-            context.fragment = parse(hash.slice(1));
+            context.param = parse(search);
+            context.anchor = parse(hash);
         }
         Object.defineProperty(URI.prototype, "search", {
             get: function () {
-                return '?' + stringify(this.query);
+                return stringify(this.param, '?');
             },
             enumerable: true,
             configurable: true
         });
         Object.defineProperty(URI.prototype, "hash", {
             get: function () {
-                return '#' + stringify(this.fragment);
+                return stringify(this.anchor, '#');
             },
             enumerable: true,
             configurable: true
@@ -49,56 +49,63 @@
         return URI;
     }());
     function parse(search) {
-        var query = {};
+        var param = {};
         if (!search)
-            return query;
-        var parseRegexp = /(?:^|&)([^&=]*)(?:=([^&]*))?/g;
-        while (true) {
-            var matched = parseRegexp.exec(search);
-            if (matched) {
-                var key = matched[1];
-                var value = matched[2];
-                if (query.hasOwnProperty(key)) {
-                    if (!Array.isArray(query[key])) {
-                        query[key] = [query[key]];
+            return param;
+        search = search.replace(/^[?#]/, '');
+        if (search) {
+            var parseRegexp = /(?:^|&)([^&=]*)(?:=([^&]*))?/g;
+            while (true) {
+                var matched = parseRegexp.exec(search);
+                if (matched) {
+                    var key = decodeURIComponent(matched[1]);
+                    var value = matched[2];
+                    if (value) {
+                        value = decodeURIComponent(value);
                     }
-                    query[key].push(value);
+                    if (param.hasOwnProperty(key)) {
+                        if (!Array.isArray(param[key])) {
+                            param[key] = [param[key]];
+                        }
+                        param[key].push(value);
+                    }
+                    else {
+                        param[key] = value;
+                    }
                 }
                 else {
-                    query[key] = value;
+                    break;
                 }
             }
-            else {
-                break;
-            }
         }
-        return query;
+        return param;
     }
-    function stringify(query) {
+    function stringify(param, prefix) {
         var search = '';
         var _loop_1 = function (key) {
-            if (query.hasOwnProperty(key)) {
-                var value = query[key];
+            if (param.hasOwnProperty(key)) {
+                key = encodeURIComponent(key);
+                var value = param[key];
                 if (Array.isArray(value)) {
                     value.forEach(function (item) {
                         search += '&' + key;
                         if (item !== undefined) {
-                            search += '=' + item;
+                            search += '=' + encodeURIComponent(item);
                         }
                     });
                 }
                 else {
                     search += '&' + key;
                     if (value !== undefined) {
-                        search += '=' + value;
+                        search += '=' + encodeURIComponent(value);
                     }
                 }
             }
         };
-        for (var key in query) {
+        for (var key in param) {
             _loop_1(key);
         }
-        return search.replace(/^&/, '');
+        return search.replace(/^&/, prefix);
     }
 
     return URI;

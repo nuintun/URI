@@ -13,8 +13,8 @@ export default class URI {
     hostname: string;
     port: string;
     pathname: string;
-    query: object;
-    fragment: object;
+    param: object;
+    anchor: object;
     constructor(uri: string);
     readonly search: string;
     readonly hash: string;

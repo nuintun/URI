@@ -16,8 +16,8 @@ export default class URI {
   public hostname: string;
   public port: string;
   public pathname: string;
-  public query: object;
-  public fragment: object;
+  public param: object;
+  public anchor: object;
 
   constructor(uri: string) {
     let context = this;
@@ -47,74 +47,84 @@ export default class URI {
     context.port = port;
     context.pathname = pathname;
 
-    context.query = parse(search.slice(1));
-    context.fragment = parse(hash.slice(1));
+    context.param = parse(search);
+    context.anchor = parse(hash);
   }
 
   public get search(): string {
-    return '?' + stringify(this.query);
+    return stringify(this.param, '?');
   }
 
   public get hash(): string {
-    return '#' + stringify(this.fragment);
+    return stringify(this.anchor, '#');
   }
 }
 
 function parse(search: string): object {
-  let query = {};
+  let param = {};
 
-  if (!search) return query;
+  if (!search) return param;
 
-  let parseRegexp = /(?:^|&)([^&=]*)(?:=([^&]*))?/g;
+  search = search.replace(/^[?#]/, '');
 
-  while (true) {
-    let matched = parseRegexp.exec(search);
+  if (search) {
+    let parseRegexp = /(?:^|&)([^&=]*)(?:=([^&]*))?/g;
 
-    if (matched) {
-      let key = matched[1];
-      let value = matched[2];
+    while (true) {
+      let matched = parseRegexp.exec(search);
 
-      if (query.hasOwnProperty(key)) {
-        if (!Array.isArray(query[key])) {
-          query[key] = [query[key]];
+      if (matched) {
+        let key = decodeURIComponent(matched[1]);
+        let value = matched[2];
+
+        if (value) {
+          value = decodeURIComponent(value);
         }
 
-        query[key].push(value);
+        if (param.hasOwnProperty(key)) {
+          if (!Array.isArray(param[key])) {
+            param[key] = [param[key]];
+          }
+
+          param[key].push(value);
+        } else {
+          param[key] = value;
+        }
       } else {
-        query[key] = value;
+        break;
       }
-    } else {
-      break;
     }
   }
 
-  return query;
+  return param;
 }
 
-function stringify(query: object): string {
+function stringify(param: object, prefix: string): string {
   let search = '';
 
-  for (let key in query) {
-    if (query.hasOwnProperty(key)) {
-      let value = query[key];
+  for (let key in param) {
+    if (param.hasOwnProperty(key)) {
+      key = encodeURIComponent(key);
+
+      let value = param[key];
 
       if (Array.isArray(value)) {
         value.forEach(function (item) {
           search += '&' + key;
 
           if (item !== undefined) {
-            search += '=' + item;
+            search += '=' + encodeURIComponent(item);
           }
         });
       } else {
         search += '&' + key;
 
         if (value !== undefined) {
-          search += '=' + value;
+          search += '=' + encodeURIComponent(value);
         }
       }
     }
   }
 
-  return search.replace(/^&/, '');
+  return search.replace(/^&/, prefix);
 }
