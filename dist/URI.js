@@ -12,42 +12,14 @@
      * This is licensed under the MIT License (MIT).
      * For details, see: https://github.com/nuintun/uri/blob/master/LICENSE
      */
-    var WHATWG_URI = /^(?:([^:?#/]+:)?(?:\/\/)?)?(?:(?:(?:([^:@]*)(?::([^:@]*))?)?@)?([^:/?#]+)(?::(\d+(?=$|[?#/])))?)?([^?#]+)?(\?[^#]*)?(#.*)?/;
-    var URI = /** @class */ (function () {
-        function URI(uri) {
-            var context = this;
-            var matched = WHATWG_URI.exec(uri);
-            // Normalize URI
-            if (!matched) {
-                throw Error('URI not a standard WHATWG URI.');
-            }
-            var // Matched
-            protocol = matched[1], username = matched[2], password = matched[3], hostname = matched[4], port = matched[5], pathname = matched[6], search = matched[7], hash = matched[8];
-            context.protocol = protocol;
-            context.username = username;
-            context.password = password;
-            context.hostname = hostname;
-            context.port = port;
-            context.pathname = pathname;
-            context.param = parse(search);
-            context.anchor = parse(hash);
+    var undef = void (0);
+    var WHATWG_URI = /^(?:([^.:@?#/]+:)?(?:\/\/)?)?(?:(?:(?:([^:@]*)(?::([^:@]*))?)?@)?([^:?#/]+)(?::(\d+(?=$|[?#/])))?)?([^?#]+)?(\?[^#]*)?(#.*)?/;
+    function normalize(value) {
+        if (value === undef) {
+            return null;
         }
-        Object.defineProperty(URI.prototype, "search", {
-            get: function () {
-                return stringify(this.param, '?');
-            },
-            enumerable: true,
-            configurable: true
-        });
-        Object.defineProperty(URI.prototype, "hash", {
-            get: function () {
-                return stringify(this.anchor, '#');
-            },
-            enumerable: true,
-            configurable: true
-        });
-        return URI;
-    }());
+        return value;
+    }
     function parse(search) {
         var param = {};
         if (!search)
@@ -89,14 +61,14 @@
                 if (Array.isArray(value)) {
                     value.forEach(function (item) {
                         search += '&' + key;
-                        if (item !== undefined) {
+                        if (item !== null) {
                             search += '=' + encodeURIComponent(item);
                         }
                     });
                 }
                 else {
                     search += '&' + key;
-                    if (value !== undefined) {
+                    if (value !== null) {
                         search += '=' + encodeURIComponent(value);
                     }
                 }
@@ -107,6 +79,41 @@
         }
         return search.replace(/^&/, prefix);
     }
+    var URI = /** @class */ (function () {
+        function URI(uri) {
+            var context = this;
+            var matched = WHATWG_URI.exec(uri);
+            // Normalize URI
+            if (!matched) {
+                throw Error('URI not a standard WHATWG URI.');
+            }
+            var // Matched
+            protocol = matched[1], username = matched[2], password = matched[3], hostname = matched[4], port = matched[5], pathname = matched[6], search = matched[7], hash = matched[8];
+            context.protocol = normalize(protocol);
+            context.username = normalize(username);
+            context.password = normalize(password);
+            context.hostname = normalize(hostname);
+            context.port = normalize(port);
+            context.pathname = normalize(pathname);
+            context.param = parse(search);
+            context.anchor = parse(hash);
+        }
+        Object.defineProperty(URI.prototype, "search", {
+            get: function () {
+                return stringify(this.param, '?');
+            },
+            enumerable: true,
+            configurable: true
+        });
+        Object.defineProperty(URI.prototype, "hash", {
+            get: function () {
+                return stringify(this.anchor, '#');
+            },
+            enumerable: true,
+            configurable: true
+        });
+        return URI;
+    }());
 
     return URI;
 

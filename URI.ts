@@ -7,57 +7,15 @@
  * For details, see: https://github.com/nuintun/uri/blob/master/LICENSE
  */
 
-const WHATWG_URI = /^(?:([^:?#/]+:)?(?:\/\/)?)?(?:(?:(?:([^:@]*)(?::([^:@]*))?)?@)?([^:/?#]+)(?::(\d+(?=$|[?#/])))?)?([^?#]+)?(\?[^#]*)?(#.*)?/;
+const undef = void (0);
+const WHATWG_URI = /^(?:([^.:@?#/]+:)?(?:\/\/)?)?(?:(?:(?:([^:@]*)(?::([^:@]*))?)?@)?([^:?#/]+)(?::(\d+(?=$|[?#/])))?)?([^?#]+)?(\?[^#]*)?(#.*)?/;
 
-export default class URI {
-  public protocol: string;
-  public username: string;
-  public password: string;
-  public hostname: string;
-  public port: string;
-  public pathname: string;
-  public param: object;
-  public anchor: object;
-
-  constructor(uri: string) {
-    let context = this;
-    let matched = WHATWG_URI.exec(uri);
-
-    // Normalize URI
-    if (!matched) {
-      throw Error('URI not a standard WHATWG URI.');
-    }
-
-    let [
-      , // Matched
-      protocol,
-      username,
-      password,
-      hostname,
-      port,
-      pathname,
-      search,
-      hash
-    ] = matched;
-
-    context.protocol = protocol;
-    context.username = username;
-    context.password = password;
-    context.hostname = hostname;
-    context.port = port;
-    context.pathname = pathname;
-
-    context.param = parse(search);
-    context.anchor = parse(hash);
+function normalize(value: any): any {
+  if (value === undef) {
+    return null;
   }
 
-  public get search(): string {
-    return stringify(this.param, '?');
-  }
-
-  public get hash(): string {
-    return stringify(this.anchor, '#');
-  }
+  return value;
 }
 
 function parse(search: string): object {
@@ -112,14 +70,14 @@ function stringify(param: object, prefix: string): string {
         value.forEach(function (item) {
           search += '&' + key;
 
-          if (item !== undefined) {
+          if (item !== null) {
             search += '=' + encodeURIComponent(item);
           }
         });
       } else {
         search += '&' + key;
 
-        if (value !== undefined) {
+        if (value !== null) {
           search += '=' + encodeURIComponent(value);
         }
       }
@@ -127,4 +85,55 @@ function stringify(param: object, prefix: string): string {
   }
 
   return search.replace(/^&/, prefix);
+}
+
+export default class URI {
+  public protocol: string;
+  public username: string;
+  public password: string;
+  public hostname: string;
+  public port: string;
+  public pathname: string;
+  public param: object;
+  public anchor: object;
+
+  constructor(uri: string) {
+    let context = this;
+    let matched = WHATWG_URI.exec(uri);
+
+    // Normalize URI
+    if (!matched) {
+      throw Error('URI not a standard WHATWG URI.');
+    }
+
+    let [
+      , // Matched
+      protocol,
+      username,
+      password,
+      hostname,
+      port,
+      pathname,
+      search,
+      hash
+    ] = matched;
+
+    context.protocol = normalize(protocol);
+    context.username = normalize(username);
+    context.password = normalize(password);
+    context.hostname = normalize(hostname);
+    context.port = normalize(port);
+    context.pathname = normalize(pathname);
+
+    context.param = parse(search);
+    context.anchor = parse(hash);
+  }
+
+  public get search(): string {
+    return stringify(this.param, '?');
+  }
+
+  public get hash(): string {
+    return stringify(this.anchor, '#');
+  }
 }
