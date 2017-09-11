@@ -13,7 +13,7 @@
      * For details, see: https://github.com/nuintun/uri/blob/master/LICENSE
      */
     var undef = void (0);
-    var WHATWG_URI = /^(?:([^.:@?#/]+:)?(?:\/\/)?)?(?:(?:(?:([^:@]*)(?::([^:@]*))?)?@)?([^:?#/]+)(?::(\d+(?=$|[?#/])))?)?([^?#]+)?(\?[^#]*)?(#.*)?/;
+    var WHATWG_URI = /^([^.:@?#/]+:)?(?:\/\/)?(?:([^:@]*)(?::([^:@]*))?@)?([^:?#/]*)(?::(\d+(?=$|[?#/])))?([^?#]*)(\?[^#]*)?(#.*)?/;
     function normalize(value) {
         if (value === undef) {
             return null;
