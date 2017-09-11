@@ -15,10 +15,19 @@
     var undef = void (0);
     var WHATWG_URI = /^([^.:@?#/]+:)?(?:\/\/)?(?:([^:@]*)(?::([^:@]*))?@)?([^:?#/]*)(?::(\d*(?=$|[?#/])))?([^?#]*)(\?[^#]*)?(#.*)?/;
     function normalize(value) {
-        if (value === undef) {
+        if (value === undef)
             return null;
-        }
         return value;
+    }
+    function encode(value) {
+        if (!value)
+            return value;
+        return encodeURIComponent(value);
+    }
+    function decode(value) {
+        if (!value)
+            return value;
+        return decodeURIComponent(value);
     }
     function parse(search) {
         var param = {};
@@ -30,11 +39,8 @@
             while (true) {
                 var matched = parseRegexp.exec(search);
                 if (matched) {
-                    var key = decodeURIComponent(matched[1]);
-                    var value = matched[2];
-                    if (value) {
-                        value = decodeURIComponent(value);
-                    }
+                    var key = decode(matched[1] || '');
+                    var value = decode(normalize(matched[2]));
                     if (param.hasOwnProperty(key)) {
                         if (!Array.isArray(param[key])) {
                             param[key] = [param[key]];
@@ -56,20 +62,19 @@
         var search = '';
         var _loop_1 = function (key) {
             if (param.hasOwnProperty(key)) {
-                key = encodeURIComponent(key);
                 var value = param[key];
                 if (Array.isArray(value)) {
                     value.forEach(function (item) {
-                        search += '&' + key;
+                        search += '&' + encode(key);
                         if (item !== null) {
-                            search += '=' + encodeURIComponent(item);
+                            search += '=' + encode(item);
                         }
                     });
                 }
                 else {
                     search += '&' + key;
                     if (value !== null) {
-                        search += '=' + encodeURIComponent(value);
+                        search += '=' + encode(value);
                     }
                 }
             }

@@ -11,11 +11,21 @@ const undef = void (0);
 const WHATWG_URI = /^([^.:@?#/]+:)?(?:\/\/)?(?:([^:@]*)(?::([^:@]*))?@)?([^:?#/]*)(?::(\d*(?=$|[?#/])))?([^?#]*)(\?[^#]*)?(#.*)?/;
 
 function normalize(value: any): any {
-  if (value === undef) {
-    return null;
-  }
+  if (value === undef) return null;
 
   return value;
+}
+
+function encode(value: any): any {
+  if (!value) return value;
+
+  return encodeURIComponent(value);
+}
+
+function decode(value: any): any {
+  if (!value) return value;
+
+  return decodeURIComponent(value);
 }
 
 function parse(search: string): object {
@@ -32,12 +42,8 @@ function parse(search: string): object {
       let matched = parseRegexp.exec(search);
 
       if (matched) {
-        let key = decodeURIComponent(matched[1]);
-        let value = matched[2];
-
-        if (value) {
-          value = decodeURIComponent(value);
-        }
+        let key = decode(matched[1] || '');
+        let value = decode(normalize(matched[2]));
 
         if (param.hasOwnProperty(key)) {
           if (!Array.isArray(param[key])) {
@@ -62,23 +68,21 @@ function stringify(param: object, prefix: string): string {
 
   for (let key in param) {
     if (param.hasOwnProperty(key)) {
-      key = encodeURIComponent(key);
-
       let value = param[key];
 
       if (Array.isArray(value)) {
         value.forEach(function (item) {
-          search += '&' + key;
+          search += '&' + encode(key);
 
           if (item !== null) {
-            search += '=' + encodeURIComponent(item);
+            search += '=' + encode(item);
           }
         });
       } else {
         search += '&' + key;
 
         if (value !== null) {
-          search += '=' + encodeURIComponent(value);
+          search += '=' + encode(value);
         }
       }
     }
