@@ -13,7 +13,7 @@
       document.getElementById('link').addEventListener('click', function(e) {
         e.preventDefault();
 
-        console.log(new URI(this.href));
+        console.log(new URI(this.getAttribute('href')));
       }, false);
     </script>
   </body>
