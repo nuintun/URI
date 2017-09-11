@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="./URI.js"></script>
+  </head>
+  <body>
+    <a id="link" href="https://user:pass@sub.host.com:8080/p/a/t/h?query=string#hash">link</a>
+    <script>
+      document.getElementById('link').addEventListener('click', function(e) {
+        e.preventDefault();
+
+        console.log(new URI(this.href));
+      }, false);
+    </script>
+  </body>
+</html>

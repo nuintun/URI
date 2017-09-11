@@ -1,0 +1,24 @@
+{
+  "name": "uri",
+  "version": "0.0.1",
+  "description": "A WHATWG URI parser.",
+  "main": "URI.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nuintun/uri.git"
+  },
+  "keywords": [
+    "URI",
+    "URL"
+  ],
+  "author": "nuintun",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/nuintun/uri/issues"
+  },
+  "homepage": "https://github.com/nuintun/uri#readme",
+  "devDependencies": {
+    "rollup": "^0.49.3",
+    "typescript": "^2.5.2"
+  }
+}

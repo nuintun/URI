@@ -1,0 +1,18 @@
+{
+  "compileOnSave": false,
+  "compilerOptions": {
+    "newLine": "LF",
+    "pretty": true,
+    "target": "es5",
+    "module": "es6",
+    "sourceMap": false,
+    "alwaysStrict": true,
+    "noUnusedLocals": true,
+    "listEmittedFiles": true,
+    "noUnusedParameters": true,
+    "allowSyntheticDefaultImports": true
+  },
+  "exclude": [
+    "node_modules"
+  ]
+}
