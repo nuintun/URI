@@ -6,7 +6,7 @@
     "target": "es5",
     "module": "es6",
     "sourceMap": false,
-    "alwaysStrict": true,
+    "declaration": true,
     "noUnusedLocals": true,
     "listEmittedFiles": true,
     "noUnusedParameters": true,

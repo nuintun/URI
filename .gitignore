@@ -57,3 +57,8 @@ typings/
 # dotenv environment variables file
 .env
 
+# npm lock file
+package-lock.json
+
+# rollup-plugin-typescript2 cache
+.rpt2_cache
