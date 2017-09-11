@@ -18,4 +18,6 @@ export default class URI {
     constructor(uri: string);
     readonly search: string;
     readonly hash: string;
+    valueOf(): string;
+    toString(): string;
 }

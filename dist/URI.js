@@ -117,6 +117,12 @@
             enumerable: true,
             configurable: true
         });
+        URI.prototype.valueOf = function () {
+            return '';
+        };
+        URI.prototype.toString = function () {
+            return this.valueOf();
+        };
         return URI;
     }());
 

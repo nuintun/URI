@@ -140,4 +140,12 @@ export default class URI {
   public get hash(): string {
     return stringify(this.anchor, '#');
   }
+
+  public valueOf(): string {
+    return '';
+  }
+
+  public toString(): string {
+    return this.valueOf();
+  }
 }
