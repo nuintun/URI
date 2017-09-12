@@ -10,24 +10,53 @@
 const undef = void (0);
 const WHATWG_URI = /^([^.:@?#/]+:)?(?:\/\/)?(?:([^:@]*)(?::([^:@]*))?@)?([^:?#/]*)(?::(\d*(?=$|[?#/])))?([^?#]*)(\?[^#]*)?(#.*)?/;
 
+/**
+ * normalize
+ *
+ * @param value
+ */
 function normalize(value: any): any {
   if (value === undef) return null;
 
   return value;
 }
 
+/**
+ * nonnull
+ *
+ * @param value
+ */
+function nonnull(value): boolean {
+  return value !== null;
+}
+
+/**
+ * encode
+ *
+ * @param value
+ */
 function encode(value: any): any {
   if (!value) return value;
 
   return encodeURIComponent(value);
 }
 
+/**
+ * decode
+ *
+ * @param value
+ */
 function decode(value: any): any {
   if (!value) return value;
 
   return decodeURIComponent(value);
 }
 
+/**
+ * search
+ *
+ * @param search
+ */
 function parse(search: string): object {
   let param = {};
 
@@ -63,6 +92,12 @@ function parse(search: string): object {
   return param;
 }
 
+/**
+ * stringify
+ *
+ * @param param
+ * @param prefix
+ */
 function stringify(param: object, prefix: string): string {
   let search = '';
 
@@ -74,14 +109,14 @@ function stringify(param: object, prefix: string): string {
         value.forEach(function (item) {
           search += '&' + encode(key);
 
-          if (item !== null) {
+          if (nonnull(item)) {
             search += '=' + encode(item);
           }
         });
       } else {
         search += '&' + key;
 
-        if (value !== null) {
+        if (nonnull(value)) {
           search += '=' + encode(value);
         }
       }
@@ -91,6 +126,11 @@ function stringify(param: object, prefix: string): string {
   return search.replace(/^&/, prefix);
 }
 
+/**
+ * URI
+ *
+ * @class
+ */
 export default class URI {
   public protocol: string;
   public username: string;
@@ -101,6 +141,10 @@ export default class URI {
   public param: object;
   public anchor: object;
 
+  /**
+   * @constructor
+   * @param uri
+   */
   constructor(uri: string) {
     let context = this;
     let matched = WHATWG_URI.exec(uri);
@@ -141,11 +185,59 @@ export default class URI {
     return stringify(this.anchor, '#');
   }
 
-  public valueOf(): string {
-    return '';
+  /**
+   * toURI
+   *
+   * @method
+   */
+  public toURI(): string {
+    let URI = '';
+    let context = this;
+    let protocol = context.protocol;
+    let username = context.username;
+    let password = context.password;
+    let hostname = context.hostname;
+    let port = context.port;
+
+    if (nonnull(protocol)) {
+      URI += protocol;
+    }
+
+    if (nonnull(protocol) || nonnull(hostname)) {
+      URI += '//';
+    }
+
+    if (nonnull(username)) {
+      URI += username;
+    }
+
+    if (nonnull(password)) {
+      URI += ':' + password;
+    }
+
+    if (nonnull(username) || nonnull(password)) {
+      URI += '@';
+    }
+
+    if (nonnull(hostname)) {
+      URI += hostname;
+    }
+
+    if (nonnull(port)) {
+      URI += ':' + port;
+    }
+
+    URI += context.search + context.hash;
+
+    return URI;
   }
 
+  /**
+   * toString
+   *
+   * @method
+   */
   public toString(): string {
-    return this.valueOf();
+    return this.toURI();
   }
 }

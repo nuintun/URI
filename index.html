@@ -10,10 +10,13 @@
   <body style="text-align: center; padding: 66px 0 0;">
     <a id="link" href="https://user:pass@sub.host.com:8080/p/a/t/h?query=string#hash">Link</a>
     <script>
-      document.getElementById('link').addEventListener('click', function(e) {
+      var link = document.getElementById('link');
+      var x = new URI(link.getAttribute('href'));
+
+      link.addEventListener('click', function(e) {
         e.preventDefault();
 
-        console.log(new URI(this.getAttribute('href')));
+        console.dir(x.toURI());
       }, false);
     </script>
   </body>

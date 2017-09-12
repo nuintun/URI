@@ -14,21 +14,49 @@
      */
     var undef = void (0);
     var WHATWG_URI = /^([^.:@?#/]+:)?(?:\/\/)?(?:([^:@]*)(?::([^:@]*))?@)?([^:?#/]*)(?::(\d*(?=$|[?#/])))?([^?#]*)(\?[^#]*)?(#.*)?/;
+    /**
+     * normalize
+     *
+     * @param value
+     */
     function normalize(value) {
         if (value === undef)
             return null;
         return value;
     }
+    /**
+     * nonnull
+     *
+     * @param value
+     */
+    function nonnull(value) {
+        return value !== null;
+    }
+    /**
+     * encode
+     *
+     * @param value
+     */
     function encode(value) {
         if (!value)
             return value;
         return encodeURIComponent(value);
     }
+    /**
+     * decode
+     *
+     * @param value
+     */
     function decode(value) {
         if (!value)
             return value;
         return decodeURIComponent(value);
     }
+    /**
+     * search
+     *
+     * @param search
+     */
     function parse(search) {
         var param = {};
         if (!search)
@@ -58,6 +86,12 @@
         }
         return param;
     }
+    /**
+     * stringify
+     *
+     * @param param
+     * @param prefix
+     */
     function stringify(param, prefix) {
         var search = '';
         var _loop_1 = function (key) {
@@ -66,14 +100,14 @@
                 if (Array.isArray(value)) {
                     value.forEach(function (item) {
                         search += '&' + encode(key);
-                        if (item !== null) {
+                        if (nonnull(item)) {
                             search += '=' + encode(item);
                         }
                     });
                 }
                 else {
                     search += '&' + key;
-                    if (value !== null) {
+                    if (nonnull(value)) {
                         search += '=' + encode(value);
                     }
                 }
@@ -84,7 +118,16 @@
         }
         return search.replace(/^&/, prefix);
     }
+    /**
+     * URI
+     *
+     * @class
+     */
     var URI = /** @class */ (function () {
+        /**
+         * @constructor
+         * @param uri
+         */
         function URI(uri) {
             var context = this;
             var matched = WHATWG_URI.exec(uri);
@@ -117,11 +160,50 @@
             enumerable: true,
             configurable: true
         });
-        URI.prototype.valueOf = function () {
-            return '';
+        /**
+         * toURI
+         *
+         * @method
+         */
+        URI.prototype.toURI = function () {
+            var URI = '';
+            var context = this;
+            var protocol = context.protocol;
+            var username = context.username;
+            var password = context.password;
+            var hostname = context.hostname;
+            var port = context.port;
+            if (nonnull(protocol)) {
+                URI += protocol;
+            }
+            if (nonnull(protocol) || nonnull(hostname)) {
+                URI += '//';
+            }
+            if (nonnull(username)) {
+                URI += username;
+            }
+            if (nonnull(password)) {
+                URI += ':' + password;
+            }
+            if (nonnull(username) || nonnull(password)) {
+                URI += '@';
+            }
+            if (nonnull(hostname)) {
+                URI += hostname;
+            }
+            if (nonnull(port)) {
+                URI += ':' + port;
+            }
+            URI += context.search + context.hash;
+            return URI;
         };
+        /**
+         * toString
+         *
+         * @method
+         */
         URI.prototype.toString = function () {
-            return this.valueOf();
+            return this.toURI();
         };
         return URI;
     }());

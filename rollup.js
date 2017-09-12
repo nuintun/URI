@@ -12,5 +12,7 @@ rollup.rollup({
     name: 'URI',
     amd: { id: 'URI' },
     file: './dist/URI.js'
+  }).then(function() {
+    console.log('Build URI.js and URI.d.ts success!');
   });
 });

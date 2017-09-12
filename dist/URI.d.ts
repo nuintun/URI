@@ -6,6 +6,11 @@
  * This is licensed under the MIT License (MIT).
  * For details, see: https://github.com/nuintun/uri/blob/master/LICENSE
  */
+/**
+ * URI
+ *
+ * @class
+ */
 export default class URI {
     protocol: string;
     username: string;
@@ -15,9 +20,23 @@ export default class URI {
     pathname: string;
     param: object;
     anchor: object;
+    /**
+     * @constructor
+     * @param uri
+     */
     constructor(uri: string);
     readonly search: string;
     readonly hash: string;
-    valueOf(): string;
+    /**
+     * toURI
+     *
+     * @method
+     */
+    toURI(): string;
+    /**
+     * toString
+     *
+     * @method
+     */
     toString(): string;
 }
