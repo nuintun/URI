@@ -1,6 +1,6 @@
 # URI
 
->A WHATWG URI parser.
+>A simple WHATWG URI parser.
 >
 >[![Dependencies][david-image]][david-url]
 

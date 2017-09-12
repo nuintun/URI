@@ -1,7 +1,7 @@
 {
   "name": "uri",
   "version": "0.0.1",
-  "description": "A WHATWG URI parser.",
+  "description": "A simple WHATWG URI parser.",
   "main": "./dist/URI.js",
   "types": "./dist/URI.d.ts",
   "repository": {
