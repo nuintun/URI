@@ -22,9 +22,9 @@ export default class URI {
     anchor: object;
     /**
      * @constructor
-     * @param uri
+     * @param URI
      */
-    constructor(uri: string);
+    constructor(URI: string);
     readonly search: string;
     readonly hash: string;
     /**

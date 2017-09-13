@@ -126,11 +126,11 @@
     var URI = /** @class */ (function () {
         /**
          * @constructor
-         * @param uri
+         * @param URI
          */
-        function URI(uri) {
+        function URI(URI) {
             var context = this;
-            var matched = WHATWG_URI.exec(uri);
+            var matched = WHATWG_URI.exec(URI);
             // Normalize URI
             if (!matched) {
                 throw Error('URI not a standard WHATWG URI.');

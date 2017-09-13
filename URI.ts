@@ -143,11 +143,11 @@ export default class URI {
 
   /**
    * @constructor
-   * @param uri
+   * @param URI
    */
-  constructor(uri: string) {
+  constructor(URI: string) {
     let context = this;
-    let matched = WHATWG_URI.exec(uri);
+    let matched = WHATWG_URI.exec(URI);
 
     // Normalize URI
     if (!matched) {
