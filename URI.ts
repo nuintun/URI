@@ -7,13 +7,13 @@
  * For details, see: https://github.com/nuintun/uri/blob/master/LICENSE
  */
 
-const undef = void (0);
-const WHATWG_URI = /^([^.:@?#/]+:)?(?:\/\/)?(?:([^:@]*)(?::([^:@]*))?@)?([^:?#/]*)(?::(\d*(?=$|[?#/])))?([^?#]*)(\?[^#]*)?(#.*)?/;
+const undef = void 0;
+const WHATWG_URI = /^([a-z0-9.+-]+:)?(?:\/\/)?(?:([^@/:]*)(?::([^@/]*))?@)?([^:?#/]*)(?::(\d*(?=$|[?#/])))?([^?#]*)(\?[^#]*)?(#.*)?/i;
 
 /**
- * normalize
- *
- * @param value
+ * @function normalize
+ * @param {any} value
+ * @returns {any}
  */
 function normalize(value: any): any {
   if (value === undef) return null;
@@ -22,18 +22,18 @@ function normalize(value: any): any {
 }
 
 /**
- * nonnull
- *
- * @param value
+ * @function nonnull
+ * @param {any} value
+ * @returns {boolean}
  */
-function nonnull(value): boolean {
+function nonnull(value: any): boolean {
   return value !== null;
 }
 
 /**
- * encode
- *
- * @param value
+ * @function encode
+ * @param {any} value
+ * @returns {string}
  */
 function encode(value: any): any {
   if (!value) return value;
@@ -42,9 +42,9 @@ function encode(value: any): any {
 }
 
 /**
- * decode
- *
- * @param value
+ * @function decode
+ * @param {any} value
+ * @returns {string}
  */
 function decode(value: any): any {
   if (!value) return value;
@@ -53,9 +53,9 @@ function decode(value: any): any {
 }
 
 /**
- * search
- *
- * @param search
+ * @function parse
+ * @param {string} search
+ * @returns {Object}
  */
 function parse(search: string): object {
   let param = {};
@@ -93,10 +93,10 @@ function parse(search: string): object {
 }
 
 /**
- * stringify
- *
- * @param param
- * @param prefix
+ * @function stringify
+ * @param {object} param
+ * @param {string} prefix
+ * @returns {string}
  */
 function stringify(param: object, prefix: string): string {
   let search = '';
@@ -106,7 +106,7 @@ function stringify(param: object, prefix: string): string {
       let value = param[key];
 
       if (Array.isArray(value)) {
-        value.forEach(function (item) {
+        value.forEach(function(item) {
           search += '&' + encode(key);
 
           if (nonnull(item)) {
@@ -127,9 +127,7 @@ function stringify(param: object, prefix: string): string {
 }
 
 /**
- * URI
- *
- * @class
+ * @class URI
  */
 export default class URI {
   public protocol: string;
@@ -143,7 +141,7 @@ export default class URI {
 
   /**
    * @constructor
-   * @param URI
+   * @param {string} URI
    */
   constructor(URI: string) {
     let context = this;
@@ -155,7 +153,8 @@ export default class URI {
     }
 
     let [
-      , // Matched
+      ,
+      // Matched
       protocol,
       username,
       password,
@@ -177,18 +176,24 @@ export default class URI {
     context.anchor = parse(hash);
   }
 
+  /**
+   * @property search
+   * @method get
+   */
   public get search(): string {
     return stringify(this.param, '?');
   }
 
+  /**
+   * @property hash
+   * @method get
+   */
   public get hash(): string {
     return stringify(this.anchor, '#');
   }
 
   /**
-   * toURI
-   *
-   * @method
+   * @method toURI
    */
   public toURI(): string {
     let URI = '';
@@ -227,15 +232,13 @@ export default class URI {
       URI += ':' + port;
     }
 
-    URI += context.search + context.hash;
+    URI += context.pathname + context.search + context.hash;
 
     return URI;
   }
 
   /**
-   * toString
-   *
-   * @method
+   * @method toString
    */
   public toString(): string {
     return this.toURI();

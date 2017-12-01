@@ -7,9 +7,7 @@
  * For details, see: https://github.com/nuintun/uri/blob/master/LICENSE
  */
 /**
- * URI
- *
- * @class
+ * @class URI
  */
 export default class URI {
     protocol: string;
@@ -22,21 +20,25 @@ export default class URI {
     anchor: object;
     /**
      * @constructor
-     * @param URI
+     * @param {string} URI
      */
     constructor(URI: string);
+    /**
+     * @property search
+     * @method get
+     */
     readonly search: string;
+    /**
+     * @property hash
+     * @method get
+     */
     readonly hash: string;
     /**
-     * toURI
-     *
-     * @method
+     * @method toURI
      */
     toURI(): string;
     /**
-     * toString
-     *
-     * @method
+     * @method toString
      */
     toString(): string;
 }

@@ -12,12 +12,12 @@
      * This is licensed under the MIT License (MIT).
      * For details, see: https://github.com/nuintun/uri/blob/master/LICENSE
      */
-    var undef = void (0);
-    var WHATWG_URI = /^([^.:@?#/]+:)?(?:\/\/)?(?:([^:@]*)(?::([^:@]*))?@)?([^:?#/]*)(?::(\d*(?=$|[?#/])))?([^?#]*)(\?[^#]*)?(#.*)?/;
+    var undef = void 0;
+    var WHATWG_URI = /^([a-z0-9.+-]+:)?(?:\/\/)?(?:([^@/:]*)(?::([^@/]*))?@)?([^:?#/]*)(?::(\d*(?=$|[?#/])))?([^?#]*)(\?[^#]*)?(#.*)?/i;
     /**
-     * normalize
-     *
-     * @param value
+     * @function normalize
+     * @param {any} value
+     * @returns {any}
      */
     function normalize(value) {
         if (value === undef)
@@ -25,17 +25,17 @@
         return value;
     }
     /**
-     * nonnull
-     *
-     * @param value
+     * @function nonnull
+     * @param {any} value
+     * @returns {boolean}
      */
     function nonnull(value) {
         return value !== null;
     }
     /**
-     * encode
-     *
-     * @param value
+     * @function encode
+     * @param {any} value
+     * @returns {string}
      */
     function encode(value) {
         if (!value)
@@ -43,9 +43,9 @@
         return encodeURIComponent(value);
     }
     /**
-     * decode
-     *
-     * @param value
+     * @function decode
+     * @param {any} value
+     * @returns {string}
      */
     function decode(value) {
         if (!value)
@@ -53,9 +53,9 @@
         return decodeURIComponent(value);
     }
     /**
-     * search
-     *
-     * @param search
+     * @function parse
+     * @param {string} search
+     * @returns {Object}
      */
     function parse(search) {
         var param = {};
@@ -87,10 +87,10 @@
         return param;
     }
     /**
-     * stringify
-     *
-     * @param param
-     * @param prefix
+     * @function stringify
+     * @param {object} param
+     * @param {string} prefix
+     * @returns {string}
      */
     function stringify(param, prefix) {
         var search = '';
@@ -119,14 +119,12 @@
         return search.replace(/^&/, prefix);
     }
     /**
-     * URI
-     *
-     * @class
+     * @class URI
      */
     var URI = /** @class */ (function () {
         /**
          * @constructor
-         * @param URI
+         * @param {string} URI
          */
         function URI(URI) {
             var context = this;
@@ -135,7 +133,8 @@
             if (!matched) {
                 throw Error('URI not a standard WHATWG URI.');
             }
-            var // Matched
+            var 
+            // Matched
             protocol = matched[1], username = matched[2], password = matched[3], hostname = matched[4], port = matched[5], pathname = matched[6], search = matched[7], hash = matched[8];
             context.protocol = normalize(protocol);
             context.username = normalize(username);
@@ -147,6 +146,10 @@
             context.anchor = parse(hash);
         }
         Object.defineProperty(URI.prototype, "search", {
+            /**
+             * @property search
+             * @method get
+             */
             get: function () {
                 return stringify(this.param, '?');
             },
@@ -154,6 +157,10 @@
             configurable: true
         });
         Object.defineProperty(URI.prototype, "hash", {
+            /**
+             * @property hash
+             * @method get
+             */
             get: function () {
                 return stringify(this.anchor, '#');
             },
@@ -161,9 +168,7 @@
             configurable: true
         });
         /**
-         * toURI
-         *
-         * @method
+         * @method toURI
          */
         URI.prototype.toURI = function () {
             var URI = '';
@@ -194,13 +199,11 @@
             if (nonnull(port)) {
                 URI += ':' + port;
             }
-            URI += context.search + context.hash;
+            URI += context.pathname + context.search + context.hash;
             return URI;
         };
         /**
-         * toString
-         *
-         * @method
+         * @method toString
          */
         URI.prototype.toString = function () {
             return this.toURI();
