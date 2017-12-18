@@ -8,11 +8,11 @@
     "type": "git",
     "url": "git+https://github.com/nuintun/uri.git"
   },
-  "keywords": [
-    "URI",
-    "URL"
-  ],
-  "author": "nuintun",
+  "keywords": ["URI", "URL"],
+  "author": {
+    "name": "nuintun",
+    "email": "nuintun@qq.com"
+  },
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/nuintun/uri/issues"

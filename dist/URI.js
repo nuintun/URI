@@ -1,6 +1,6 @@
 /**
  * @module URI
- * @author undefined
+ * @author nuintun
  * @license MIT
  * @version 0.0.1
  * @description A simple WHATWG URI parser.
