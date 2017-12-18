@@ -44,8 +44,31 @@ rollup
           amd: { id: 'URI' },
           file: './dist/URI.js'
         })
-        .then(a => {
-          console.log('Build URI.js and URI.d.ts success!');
+        .then(() => {
+          console.log('  Build dist/URI.js success!');
+          console.log('  Build dist/URI.d.ts success!');
+
+          fs.readFile('./dist/URI.js', function(error, result) {
+            if (error) throw error;
+
+            const min = 'dist/URI.min.js';
+            const map = 'URI.js.map';
+
+            var result = uglify.minify(
+              {
+                'URI.js': result.toString()
+              },
+              {
+                ecma: 5,
+                sourceMap: { url: map }
+              }
+            );
+
+            fs.writeFileSync(min, banner + result.code);
+            console.log(`  Build ${min} success!`);
+            fs.writeFileSync(`./dist/${map}`, result.map);
+            console.log(`  Build dist/${map} success!`);
+          });
         });
     });
   })
