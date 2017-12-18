@@ -8,7 +8,7 @@
  */
 
 const undef = void 0;
-const WHATWG_URI = /^([a-z0-9.+-]+:)?(?:\/\/)?(?:([^@/:]*)(?::([^@/]*))?@)?([^:?#/]*)(?::(\d*(?=$|[?#/])))?([^?#]*)(\?[^#]*)?(#.*)?/i;
+const WHATWG_URI = /^([a-z0-9.+-]+:)?(?:\/\/)?(?:([^/:]*)(?::([^/]*))?@)?([^:?#/]*)(?::(\d*(?=$|[?#/])))?([^?#]*)(\?[^#]*)?(#.*)?/i;
 
 /**
  * @function normalize
@@ -94,7 +94,7 @@ function parse(search: string): object {
 
 /**
  * @function stringify
- * @param {object} param
+ * @param {Object} param
  * @param {string} prefix
  * @returns {string}
  */

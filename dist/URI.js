@@ -1,3 +1,12 @@
+/**
+* @module uri
+* @author undefined
+* @license MIT
+* @version 0.0.1
+* @description A simple WHATWG URI parser.
+* @see https://github.com/nuintun/uri#readme
+*/
+
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
     typeof define === 'function' && define.amd ? define('URI', factory) :
@@ -13,7 +22,7 @@
      * For details, see: https://github.com/nuintun/uri/blob/master/LICENSE
      */
     var undef = void 0;
-    var WHATWG_URI = /^([a-z0-9.+-]+:)?(?:\/\/)?(?:([^@/:]*)(?::([^@/]*))?@)?([^:?#/]*)(?::(\d*(?=$|[?#/])))?([^?#]*)(\?[^#]*)?(#.*)?/i;
+    var WHATWG_URI = /^([a-z0-9.+-]+:)?(?:\/\/)?(?:([^/:]*)(?::([^/]*))?@)?([^:?#/]*)(?::(\d*(?=$|[?#/])))?([^?#]*)(\?[^#]*)?(#.*)?/i;
     /**
      * @function normalize
      * @param {any} value
@@ -88,7 +97,7 @@
     }
     /**
      * @function stringify
-     * @param {object} param
+     * @param {Object} param
      * @param {string} prefix
      * @returns {string}
      */
