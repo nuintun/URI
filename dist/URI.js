@@ -1,5 +1,5 @@
 /**
- * @module uri
+ * @module URI
  * @author undefined
  * @license MIT
  * @version 0.0.1

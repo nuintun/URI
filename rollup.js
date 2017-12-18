@@ -13,7 +13,7 @@ const typescript = require('rollup-plugin-typescript2');
 const pkg = require('./package.json');
 
 const banner = `/**
- * @module ${pkg.name}
+ * @module ${pkg.name.toUpperCase()}
  * @author ${pkg.author.name}
  * @license ${pkg.license}
  * @version ${pkg.version}
