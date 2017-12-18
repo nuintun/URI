@@ -1,11 +1,11 @@
 /**
-* @module uri
-* @author undefined
-* @license MIT
-* @version 0.0.1
-* @description A simple WHATWG URI parser.
-* @see https://github.com/nuintun/uri#readme
-*/
+ * @module uri
+ * @author undefined
+ * @license MIT
+ * @version 0.0.1
+ * @description A simple WHATWG URI parser.
+ * @see https://github.com/nuintun/uri#readme
+ */
 
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
