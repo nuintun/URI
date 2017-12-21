@@ -19,7 +19,7 @@
      * @version 2017/12/18
      */
     var undef = void 0;
-    //                     1.protocol                2.user      3.pass      4.hostname         5.port     6.pathname 7.search  8.hash
+    //                     1.protocol                2.user      3.pass      4.hostname         5.port     6.pathname 7.search 8.hash
     //                         |                        |          |             |                |             |        |       |
     //                   --------------              -------     ------      ---------     ---------------   ------- --------  -----
     var WHATWG_URI = /^([a-z0-9.+-]+:)?(?:\/\/)?(?:([^/:]*)(?::([^/]*))?@)?([^:?#/]*)(?::(\d*(?=$|[?#/])))?([^?#]*)(\?[^#]*)?(#.*)?/i;
