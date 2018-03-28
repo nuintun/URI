@@ -57,8 +57,15 @@ typings/
 # dotenv environment variables file
 .env
 
+# vscode
+.vscode
+
 # npm lock file
 package-lock.json
 
-# rollup-plugin-typescript2 cache
+# tests compiled file
+/tests/dist
+/tests/manifest.json
+
+# typescript build cache
 .rpt2_cache

@@ -1,16 +1,30 @@
 /**
  * @module rollup
  * @license MIT
- * @version 2017/12/18
+ * @version 2018/03/28
  */
 
 'use strict';
 
-const fs = require('fs');
+const fs = require('fs-extra');
 const rollup = require('rollup');
 const uglify = require('uglify-es');
-const typescript = require('rollup-plugin-typescript2');
 const pkg = require('./package.json');
+const typescript = require('rollup-plugin-typescript2');
+
+/**
+ * @function build
+ * @param {Object} inputOptions
+ * @param {Object} outputOptions
+ */
+async function build(inputOptions, outputOptions) {
+  await fs.remove('dist');
+
+  const bundle = await rollup.rollup(inputOptions);
+
+  await bundle.write(outputOptions);
+  console.log(`Build ${outputOptions.file} success!`);
+}
 
 const banner = `/**
  * @module ${pkg.name.toUpperCase()}
@@ -22,56 +36,20 @@ const banner = `/**
  */
 `;
 
-rollup
-  .rollup({
-    context: 'window',
-    input: 'URI.ts',
-    plugins: [typescript()]
-  })
-  .then(bundle => {
-    fs.stat('dist', error => {
-      if (error) {
-        fs.mkdirSync('dist');
-      }
+const inputOptions = {
+  input: 'URI.ts',
+  context: 'window',
+  plugins: [typescript()]
+};
 
-      bundle
-        .write({
-          format: 'umd',
-          indent: true,
-          strict: true,
-          name: 'URI',
-          banner: banner,
-          amd: { id: 'URI' },
-          file: './dist/URI.js'
-        })
-        .then(() => {
-          console.log('  Build dist/URI.js success!');
-          console.log('  Build dist/URI.d.ts success!');
+const outputOptions = {
+  name: 'URI',
+  format: 'umd',
+  indent: true,
+  strict: true,
+  banner: banner,
+  amd: { id: 'URI' },
+  file: 'dist/URI.js'
+};
 
-          fs.readFile('./dist/URI.js', function(error, result) {
-            if (error) throw error;
-
-            const min = 'dist/URI.min.js';
-            const map = 'URI.js.map';
-
-            var result = uglify.minify(
-              {
-                'URI.js': result.toString()
-              },
-              {
-                ecma: 5,
-                sourceMap: { url: map }
-              }
-            );
-
-            fs.writeFileSync(min, banner + result.code);
-            console.log(`  Build ${min} success!`);
-            fs.writeFileSync(`./dist/${map}`, result.map);
-            console.log(`  Build dist/${map} success!`);
-          });
-        });
-    });
-  })
-  .catch(error => {
-    console.error(error);
-  });
+build(inputOptions, outputOptions);

@@ -1,7 +1,7 @@
 /**
  * @module URI
  * @license MIT
- * @version 2017/12/18
+ * @version 2018/03/28
  */
 
 const undef = void 0;
@@ -12,10 +12,10 @@ const WHATWG_URI = /^([a-z0-9.+-]+:)?(?:\/\/)?(?:([^/:]*)(?::([^/]*))?@)?([^:?#/
 
 /**
  * @function normalize
- * @param {any} value
- * @returns {any}
+ * @param {string} value
+ * @returns {string|null}
  */
-function normalize(value: any): any {
+function normalize(value: string): string | null {
   if (value === undef) return null;
 
   return value;
@@ -23,19 +23,19 @@ function normalize(value: any): any {
 
 /**
  * @function nonnull
- * @param {any} value
+ * @param {string|null} value
  * @returns {boolean}
  */
-function nonnull(value: any): boolean {
+function nonnull(value: string | null): boolean {
   return value !== null;
 }
 
 /**
  * @function encode
- * @param {any} value
- * @returns {string}
+ * @param {string|null} value
+ * @returns {string|null}
  */
-function encode(value: any): any {
+function encode(value: string | null): string | null {
   if (!value) return value;
 
   return encodeURIComponent(value);
@@ -43,10 +43,10 @@ function encode(value: any): any {
 
 /**
  * @function decode
- * @param {any} value
- * @returns {string}
+ * @param {string|null} value
+ * @returns {string|null}
  */
-function decode(value: any): any {
+function decode(value: string | null): string | null {
   if (!value) return value;
 
   return decodeURIComponent(value);
@@ -57,10 +57,10 @@ function decode(value: any): any {
  * @param {string} search
  * @returns {Object}
  */
-function parse(search: string): object {
-  let param = {};
+function parse(search: string): Object {
+  let query = {};
 
-  if (!search) return param;
+  if (!search) return query;
 
   search = search.replace(/^[?#]/, '');
 
@@ -74,14 +74,14 @@ function parse(search: string): object {
         let key = decode(matched[1] || '');
         let value = decode(normalize(matched[2]));
 
-        if (param.hasOwnProperty(key)) {
-          if (!Array.isArray(param[key])) {
-            param[key] = [param[key]];
+        if (query.hasOwnProperty(key)) {
+          if (!Array.isArray(query[key])) {
+            query[key] = [query[key]];
           }
 
-          param[key].push(value);
+          query[key].push(value);
         } else {
-          param[key] = value;
+          query[key] = value;
         }
       } else {
         break;
@@ -89,7 +89,7 @@ function parse(search: string): object {
     }
   }
 
-  return param;
+  return query;
 }
 
 /**
@@ -98,12 +98,12 @@ function parse(search: string): object {
  * @param {string} prefix
  * @returns {string}
  */
-function stringify(param: object, prefix: string): string {
+function stringify(query: Object, prefix: string): string {
   let search = '';
 
-  for (let key in param) {
-    if (param.hasOwnProperty(key)) {
-      let value = param[key];
+  for (let key in query) {
+    if (query.hasOwnProperty(key)) {
+      let value = query[key];
 
       if (Array.isArray(value)) {
         value.forEach(function(item) {
@@ -136,12 +136,13 @@ export default class URI {
   public hostname: string;
   public port: string;
   public pathname: string;
-  public param: object;
-  public anchor: object;
+  public query: Object;
+  public fragment: Object;
 
   /**
    * @constructor
    * @param {string} URI
+   * @returns {URI}
    */
   constructor(URI: string) {
     let context = this;
@@ -172,28 +173,31 @@ export default class URI {
     context.port = normalize(port);
     context.pathname = normalize(pathname);
 
-    context.param = parse(search);
-    context.anchor = parse(hash);
+    context.query = parse(search);
+    context.fragment = parse(hash);
   }
 
   /**
    * @property search
    * @method get
+   * @returns {string}
    */
   public get search(): string {
-    return stringify(this.param, '?');
+    return stringify(this.query, '?');
   }
 
   /**
    * @property hash
    * @method get
+   * @returns {string}
    */
   public get hash(): string {
-    return stringify(this.anchor, '#');
+    return stringify(this.fragment, '#');
   }
 
   /**
    * @method toURI
+   * @returns {string}
    */
   public toURI(): string {
     let URI = '';
@@ -239,6 +243,7 @@ export default class URI {
 
   /**
    * @method toString
+   * @returns {string}
    */
   public toString(): string {
     return this.toURI();
