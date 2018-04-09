@@ -4,11 +4,17 @@
  * @version 2018/03/28
  */
 
-const undef = void 0;
-//                     1.protocol                2.user      3.pass      4.hostname         5.port     6.pathname 7.search 8.hash
-//                         |                        |          |             |                |             |        |       |
-//                   --------------              -------     ------      ---------     ---------------   ------- --------  -----
-const WHATWG_URI = /^([a-z0-9.+-]+:)?(?:\/\/)?(?:([^/:]*)(?::([^/]*))?@)?([^:?#/]*)(?::(\d*(?=$|[?#/])))?([^?#]*)(\?[^#]*)?(#.*)?/i;
+// Undefined
+const UNDEFINED: undefined = void 0;
+// Parse query regex
+const PARSE_QUERY_REGEX: RegExp = /(?:^|&)([^&=]*)(?:=([^&]*))?/g;
+// Parse WHATWG URI regex
+//
+//     1.protocol                2.user      3.pass      4.hostname         5.port     6.pathname 7.search 8.hash
+//          |                        |          |             |                |             |        |      |
+//    --------------              -------     ------      ---------     ---------------   ------- -------- -----
+// /^([a-z0-9.+-]+:)?(?:\/\/)?(?:([^/:]*)(?::([^/]*))?@)?([^:?#/]*)(?::(\d*(?=$|[?#/])))?([^?#]*)(\?[^#]*)?(#.*)?/i
+const WHATWG_URI_REGEX: RegExp = /^([a-z0-9.+-]+:)?(?:\/\/)?(?:([^/:]*)(?::([^/]*))?@)?([^:?#/]*)(?::(\d*(?=$|[?#/])))?([^?#]*)(\?[^#]*)?(#.*)?/i;
 
 /**
  * @function normalize
@@ -16,7 +22,7 @@ const WHATWG_URI = /^([a-z0-9.+-]+:)?(?:\/\/)?(?:([^/:]*)(?::([^/]*))?@)?([^:?#/
  * @returns {string|null}
  */
 function normalize(value: string): string | null {
-  if (value === undef) return null;
+  if (value === UNDEFINED) return null;
 
   return value;
 }
@@ -58,21 +64,19 @@ function decode(value: string | null): string | null {
  * @returns {Object}
  */
 function parse(search: string): Object {
-  let query = {};
+  const query: Object = {};
 
   if (!search) return query;
 
   search = search.replace(/^[?#]/, '');
 
   if (search) {
-    let parseRegexp = /(?:^|&)([^&=]*)(?:=([^&]*))?/g;
-
     while (true) {
-      let matched = parseRegexp.exec(search);
+      const matched: string[] | null = PARSE_QUERY_REGEX.exec(search);
 
       if (matched) {
-        let key = decode(matched[1] || '');
-        let value = decode(normalize(matched[2]));
+        const key: string = decode(matched[1] || '');
+        const value: string = decode(normalize(matched[2]));
 
         if (query.hasOwnProperty(key)) {
           if (!Array.isArray(query[key])) {
@@ -99,14 +103,14 @@ function parse(search: string): Object {
  * @returns {string}
  */
 function stringify(query: Object, prefix: string): string {
-  let search = '';
+  let search: string = '';
 
   for (let key in query) {
     if (query.hasOwnProperty(key)) {
-      let value = query[key];
+      const value: string | string[] = query[key];
 
       if (Array.isArray(value)) {
-        value.forEach(function(item) {
+        value.forEach(item => {
           search += '&' + encode(key);
 
           if (nonnull(item)) {
@@ -130,30 +134,29 @@ function stringify(query: Object, prefix: string): string {
  * @class URI
  */
 export default class URI {
-  public protocol: string;
-  public username: string;
-  public password: string;
-  public hostname: string;
-  public port: string;
-  public pathname: string;
+  public protocol: string | null;
+  public username: string | null;
+  public password: string | null;
+  public hostname: string | null;
+  public port: string | null;
+  public pathname: string | null;
   public query: Object;
   public fragment: Object;
 
   /**
    * @constructor
    * @param {string} URI
-   * @returns {URI}
    */
   constructor(URI: string) {
-    let context = this;
-    let matched = WHATWG_URI.exec(URI);
+    const context: URI = this;
+    const matched: string[] | null = WHATWG_URI_REGEX.exec(URI);
 
     // Normalize URI
     if (!matched) {
       throw Error('URI not a standard WHATWG URI.');
     }
 
-    let [
+    const [
       ,
       // Matched
       protocol,
@@ -200,13 +203,13 @@ export default class URI {
    * @returns {string}
    */
   public toURI(): string {
-    let URI = '';
-    let context = this;
-    let protocol = context.protocol;
-    let username = context.username;
-    let password = context.password;
-    let hostname = context.hostname;
-    let port = context.port;
+    let URI: string = '';
+    const context: URI = this;
+    const protocol: string | null = context.protocol;
+    const username: string | null = context.username;
+    const password: string | null = context.password;
+    const hostname: string | null = context.hostname;
+    const port: string | null = context.port;
 
     if (nonnull(protocol)) {
       URI += protocol;

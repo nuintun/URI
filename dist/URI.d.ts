@@ -2,18 +2,17 @@
  * @class URI
  */
 export default class URI {
-    protocol: string;
-    username: string;
-    password: string;
-    hostname: string;
-    port: string;
-    pathname: string;
+    protocol: string | null;
+    username: string | null;
+    password: string | null;
+    hostname: string | null;
+    port: string | null;
+    pathname: string | null;
     query: Object;
     fragment: Object;
     /**
      * @constructor
      * @param {string} URI
-     * @returns {URI}
      */
     constructor(URI: string);
     /**
