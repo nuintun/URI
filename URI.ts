@@ -76,7 +76,7 @@ function parse(search: string): Object {
 
       if (matched) {
         const key: string = decode(matched[1] || '');
-        const value: string = decode(normalize(matched[2]));
+        const value: string | null = decode(normalize(matched[2]));
 
         if (query.hasOwnProperty(key)) {
           if (!Array.isArray(query[key])) {
