@@ -147,7 +147,7 @@
             if (!matched) {
                 throw Error('URI not a standard WHATWG URI.');
             }
-            var 
+            var
             // Matched
             protocol = matched[1], username = matched[2], password = matched[3], hostname = matched[4], port = matched[5], pathname = matched[6], search = matched[7], hash = matched[8];
             context.protocol = normalize(protocol);
@@ -198,7 +198,7 @@
             if (nonnull(protocol)) {
                 URI += protocol;
             }
-            if (nonnull(protocol) || nonnull(hostname)) {
+            if (nonnull(protocol)) {
                 URI += '//';
             }
             if (nonnull(username)) {

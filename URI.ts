@@ -215,7 +215,7 @@ export default class URI {
       URI += protocol;
     }
 
-    if (nonnull(protocol) || nonnull(hostname)) {
+    if (nonnull(protocol)) {
       URI += '//';
     }
 
