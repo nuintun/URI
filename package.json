@@ -20,9 +20,9 @@
   "homepage": "https://github.com/nuintun/uri#readme",
   "devDependencies": {
     "rollup": "^0.58.2",
-    "fs-extra": "^6.0.0",
+    "fs-extra": "^6.0.1",
     "uglify-es": "^3.3.9",
     "typescript": "^2.8.3",
-    "rollup-plugin-typescript2": "^0.13.0"
+    "rollup-plugin-typescript2": "^0.14.0"
   }
 }
