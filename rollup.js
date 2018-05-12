@@ -6,6 +6,7 @@
 
 'use strict';
 
+const path = require('path');
 const fs = require('fs-extra');
 const rollup = require('rollup');
 const uglify = require('uglify-es');
@@ -23,7 +24,24 @@ async function build(inputOptions, outputOptions) {
   const bundle = await rollup.rollup(inputOptions);
 
   await bundle.write(outputOptions);
-  console.log(`Build ${outputOptions.file} success!`);
+
+  const file = outputOptions.file;
+
+  console.log(`Build ${file} success!`);
+
+  const min = file.replace(/\.js$/i, '.min.js');
+  const map = `${file}.map`;
+
+  const minify = uglify.minify(
+    { 'URI.js': (await fs.readFile(path.resolve(file))).toString() },
+    { ecma: 5, ie8: true, mangle: { eval: true }, sourceMap: { url: path.basename(map) } }
+  );
+
+  await fs.outputFile(min, outputOptions.banner + minify.code);
+  console.log(`Build ${min} success!`);
+
+  await fs.outputFile(map, minify.map);
+  console.log(`Build ${map} success!`);
 }
 
 const banner = `/**
