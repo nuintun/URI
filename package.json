@@ -8,7 +8,10 @@
     "type": "git",
     "url": "git+https://github.com/nuintun/uri.git"
   },
-  "keywords": ["URI", "URL"],
+  "keywords": [
+    "URI",
+    "URL"
+  ],
   "author": {
     "name": "nuintun",
     "email": "nuintun@qq.com"
@@ -19,10 +22,10 @@
   },
   "homepage": "https://github.com/nuintun/uri#readme",
   "devDependencies": {
-    "rollup": "^0.58.2",
+    "rollup": "^0.62.0",
     "fs-extra": "^6.0.1",
     "uglify-es": "^3.3.9",
-    "typescript": "^2.8.3",
-    "rollup-plugin-typescript2": "^0.14.0"
+    "typescript": "^2.9.2",
+    "rollup-plugin-typescript2": "^0.15.1"
   }
 }

@@ -1,4 +1,9 @@
 /**
+ * @module URI
+ * @license MIT
+ * @version 2018/03/28
+ */
+/**
  * @class URI
  */
 export default class URI {
