@@ -40,11 +40,11 @@
       return value;
   }
   /**
-   * @function nonnull
+   * @function isNotNull
    * @param {string|null} value
    * @returns {boolean}
    */
-  function nonnull(value) {
+  function isNotNull(value) {
       return value !== null;
   }
   /**
@@ -114,14 +114,14 @@
               if (Array.isArray(value)) {
                   value.forEach(function (item) {
                       search += '&' + encode(key);
-                      if (nonnull(item)) {
+                      if (isNotNull(item)) {
                           search += '=' + encode(item);
                       }
                   });
               }
               else {
                   search += '&' + key;
-                  if (nonnull(value)) {
+                  if (isNotNull(value)) {
                       search += '=' + encode(value);
                   }
               }
@@ -195,25 +195,25 @@
           var password = context.password;
           var hostname = context.hostname;
           var port = context.port;
-          if (nonnull(protocol)) {
+          if (isNotNull(protocol)) {
               URI += protocol;
           }
-          if (nonnull(protocol)) {
+          if (isNotNull(protocol)) {
               URI += '//';
           }
-          if (nonnull(username)) {
+          if (isNotNull(username)) {
               URI += username;
           }
-          if (nonnull(password)) {
+          if (isNotNull(password)) {
               URI += ':' + password;
           }
-          if (nonnull(username) || nonnull(password)) {
+          if (isNotNull(username) || isNotNull(password)) {
               URI += '@';
           }
-          if (nonnull(hostname)) {
+          if (isNotNull(hostname)) {
               URI += hostname;
           }
-          if (nonnull(port)) {
+          if (isNotNull(port)) {
               URI += ':' + port;
           }
           URI += context.pathname + context.search + context.hash;
