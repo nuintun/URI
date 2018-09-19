@@ -111,9 +111,11 @@
       var _loop_1 = function (key) {
           if (query.hasOwnProperty(key)) {
               var value = query[key];
+              // Encode key
+              key = encode(key);
               if (Array.isArray(value)) {
                   value.forEach(function (item) {
-                      search += '&' + encode(key);
+                      search += '&' + key;
                       if (isNotNull(item)) {
                           search += '=' + encode(item);
                       }

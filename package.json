@@ -22,10 +22,10 @@
   },
   "homepage": "https://github.com/nuintun/uri#readme",
   "devDependencies": {
-    "rollup": "^0.63.4",
+    "rollup": "^0.66.0",
     "fs-extra": "^7.0.0",
-    "uglify-es": "^3.3.9",
-    "typescript": "^3.0.1",
-    "rollup-plugin-typescript2": "^0.16.1"
+    "uglify-js": "^3.4.9",
+    "typescript": "^3.0.3",
+    "rollup-plugin-typescript2": "^0.17.0"
   }
 }

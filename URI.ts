@@ -109,9 +109,12 @@ function stringify(query: Object, prefix: string): string {
     if (query.hasOwnProperty(key)) {
       const value: string | string[] = query[key];
 
+      // Encode key
+      key = encode(key);
+
       if (Array.isArray(value)) {
         value.forEach(item => {
-          search += '&' + encode(key);
+          search += '&' + key;
 
           if (isNotNull(item)) {
             search += '=' + encode(item);
