@@ -62,9 +62,9 @@ const inputOptions = {
 
 const outputOptions = {
   name: 'URI',
-  format: 'umd',
   indent: true,
   strict: true,
+  format: 'umd',
   banner: banner,
   amd: { id: 'URI' },
   file: 'dist/URI.js'
