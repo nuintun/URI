@@ -61,11 +61,11 @@ const inputOptions = {
 };
 
 const outputOptions = {
+  banner,
   name: 'URI',
   indent: true,
   strict: true,
   format: 'umd',
-  banner: banner,
   amd: { id: 'URI' },
   file: 'dist/URI.js'
 };
