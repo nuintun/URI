@@ -10,8 +10,8 @@
 (function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
   typeof define === 'function' && define.amd ? define('URI', factory) :
-  (global.URI = factory());
-}(this, (function () { 'use strict';
+  (global = global || self, global.URI = factory());
+}(this, function () { 'use strict';
 
   /**
    * @module URI
@@ -233,4 +233,4 @@
 
   return URI;
 
-})));
+}));

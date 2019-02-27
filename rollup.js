@@ -8,8 +8,8 @@
 
 const path = require('path');
 const fs = require('fs-extra');
+const terser = require('terser');
 const rollup = require('rollup');
-const uglify = require('uglify-js');
 const pkg = require('./package.json');
 const typescript = require('rollup-plugin-typescript2');
 
@@ -32,7 +32,7 @@ async function build(inputOptions, outputOptions) {
   const min = file.replace(/\.js$/i, '.min.js');
   const map = `${file}.map`;
 
-  const minify = uglify.minify(
+  const minify = terser.minify(
     { 'URI.js': (await fs.readFile(path.resolve(file))).toString() },
     { ecma: 5, ie8: true, mangle: { eval: true }, sourceMap: { url: path.basename(map) } }
   );
