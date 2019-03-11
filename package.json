@@ -26,6 +26,6 @@
     "terser": "^3.16.1",
     "uglify-js": "^3.4.9",
     "typescript": "^3.3.3333",
-    "rollup-plugin-typescript2": "^0.19.3"
+    "rollup-plugin-typescript2": "^0.20.0"
   }
 }
