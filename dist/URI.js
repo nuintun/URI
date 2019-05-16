@@ -1,8 +1,8 @@
 /**
  * @module URI
- * @author nuintun
  * @license MIT
  * @version 0.0.1
+ * @author nuintun
  * @description A simple WHATWG URI parser.
  * @see https://github.com/nuintun/uri#readme
  */
@@ -234,3 +234,4 @@
   return URI;
 
 }));
+//# sourceMappingURL=URI.js.map
