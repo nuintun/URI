@@ -234,4 +234,3 @@
   return URI;
 
 }));
-//# sourceMappingURL=URI.js.map
