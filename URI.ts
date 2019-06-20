@@ -4,8 +4,6 @@
  * @version 2018/03/28
  */
 
-// Undefined
-const UNDEFINED: undefined = void 0;
 // Parse query regex
 const PARSE_QUERY_REGEX: RegExp = /(?:^|&)([^&=]*)(?:=([^&]*))?/g;
 // Parse WHATWG URI regex
@@ -18,22 +16,22 @@ const WHATWG_URI_REGEX: RegExp = /^([a-z0-9.+-]+:)?(?:\/\/)?(?:([^/:]*)(?::([^/]
 
 /**
  * @function normalize
- * @param {string} value
- * @returns {string|null}
+ * @param {T} value
+ * @returns {T|null}
  */
-function normalize(value: string): string | null {
-  if (value === UNDEFINED) return null;
+function normalize<T>(value: T): T | null {
+  if (value == null) return null;
 
   return value;
 }
 
 /**
- * @function isNotNull
- * @param {string|null} value
+ * @function isNotNullAndUndef
+ * @param {any} value
  * @returns {boolean}
  */
-function isNotNull(value: string | null): boolean {
-  return value !== null;
+function isNotNullAndUndef(value: any): boolean {
+  return value != null;
 }
 
 /**
@@ -58,13 +56,19 @@ function decode(value: string | null): string | null {
   return decodeURIComponent(value);
 }
 
+type ParamValue = string | string[] | null;
+
+interface ParseResult {
+  [key: string]: ParamValue;
+}
+
 /**
  * @function parse
  * @param {string} search
- * @returns {Object}
+ * @returns {{[key:string]:any}}
  */
-function parse(search: string): Object {
-  const query: Object = {};
+function parse(search: string): ParseResult {
+  const query: ParseResult = {};
 
   if (!search) return query;
 
@@ -80,10 +84,10 @@ function parse(search: string): Object {
 
         if (query.hasOwnProperty(key)) {
           if (!Array.isArray(query[key])) {
-            query[key] = [query[key]];
+            query[key] = [query[key] as string | null];
           }
 
-          query[key].push(value);
+          (query[key] as string[]).push(value);
         } else {
           query[key] = value;
         }
@@ -107,7 +111,7 @@ function stringify(query: Object, prefix: string): string {
 
   for (let key in query) {
     if (query.hasOwnProperty(key)) {
-      const value: string | string[] = query[key];
+      const value: ParamValue = query[key];
 
       // Encode key
       key = encode(key);
@@ -116,14 +120,14 @@ function stringify(query: Object, prefix: string): string {
         value.forEach(item => {
           search += '&' + key;
 
-          if (isNotNull(item)) {
+          if (isNotNullAndUndef(item)) {
             search += '=' + encode(item);
           }
         });
       } else {
         search += '&' + key;
 
-        if (isNotNull(value)) {
+        if (isNotNullAndUndef(value)) {
           search += '=' + encode(value);
         }
       }
@@ -143,8 +147,8 @@ export default class URI {
   public hostname: string | null;
   public port: string | null;
   public pathname: string | null;
-  public query: Object;
-  public fragment: Object;
+  public query: ParseResult;
+  public fragment: ParseResult;
 
   /**
    * @constructor
@@ -214,31 +218,31 @@ export default class URI {
     const hostname: string | null = context.hostname;
     const port: string | null = context.port;
 
-    if (isNotNull(protocol)) {
+    if (isNotNullAndUndef(protocol)) {
       URI += protocol;
     }
 
-    if (isNotNull(protocol)) {
+    if (isNotNullAndUndef(protocol)) {
       URI += '//';
     }
 
-    if (isNotNull(username)) {
+    if (isNotNullAndUndef(username)) {
       URI += username;
     }
 
-    if (isNotNull(password)) {
+    if (isNotNullAndUndef(password)) {
       URI += ':' + password;
     }
 
-    if (isNotNull(username) || isNotNull(password)) {
+    if (isNotNullAndUndef(username) || isNotNullAndUndef(password)) {
       URI += '@';
     }
 
-    if (isNotNull(hostname)) {
+    if (isNotNullAndUndef(hostname)) {
       URI += hostname;
     }
 
-    if (isNotNull(port)) {
+    if (isNotNullAndUndef(port)) {
       URI += ':' + port;
     }
 

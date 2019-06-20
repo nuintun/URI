@@ -3,6 +3,10 @@
  * @license MIT
  * @version 2018/03/28
  */
+declare type ParamValue = string | string[] | null;
+interface ParseResult {
+    [key: string]: ParamValue;
+}
 /**
  * @class URI
  */
@@ -13,8 +17,8 @@ export default class URI {
     hostname: string | null;
     port: string | null;
     pathname: string | null;
-    query: Object;
-    fragment: Object;
+    query: ParseResult;
+    fragment: ParseResult;
     /**
      * @constructor
      * @param {string} URI
@@ -43,3 +47,4 @@ export default class URI {
      */
     toString(): string;
 }
+export {};

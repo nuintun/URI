@@ -18,8 +18,6 @@
    * @license MIT
    * @version 2018/03/28
    */
-  // Undefined
-  var UNDEFINED = void 0;
   // Parse query regex
   var PARSE_QUERY_REGEX = /(?:^|&)([^&=]*)(?:=([^&]*))?/g;
   // Parse WHATWG URI regex
@@ -31,21 +29,21 @@
   var WHATWG_URI_REGEX = /^([a-z0-9.+-]+:)?(?:\/\/)?(?:([^/:]*)(?::([^/]*))?@)?([^:?#/]*)(?::(\d*(?=$|[?#/])))?([^?#]*)(\?[^#]*)?(#.*)?/i;
   /**
    * @function normalize
-   * @param {string} value
-   * @returns {string|null}
+   * @param {T} value
+   * @returns {T|null}
    */
   function normalize(value) {
-      if (value === UNDEFINED)
+      if (value == null)
           return null;
       return value;
   }
   /**
-   * @function isNotNull
-   * @param {string|null} value
+   * @function isNotNullAndUndef
+   * @param {any} value
    * @returns {boolean}
    */
-  function isNotNull(value) {
-      return value !== null;
+  function isNotNullAndUndef(value) {
+      return value != null;
   }
   /**
    * @function encode
@@ -70,7 +68,7 @@
   /**
    * @function parse
    * @param {string} search
-   * @returns {Object}
+   * @returns {{[key:string]:any}}
    */
   function parse(search) {
       var query = {};
@@ -116,14 +114,14 @@
               if (Array.isArray(value)) {
                   value.forEach(function (item) {
                       search += '&' + key;
-                      if (isNotNull(item)) {
+                      if (isNotNullAndUndef(item)) {
                           search += '=' + encode(item);
                       }
                   });
               }
               else {
                   search += '&' + key;
-                  if (isNotNull(value)) {
+                  if (isNotNullAndUndef(value)) {
                       search += '=' + encode(value);
                   }
               }
@@ -197,25 +195,25 @@
           var password = context.password;
           var hostname = context.hostname;
           var port = context.port;
-          if (isNotNull(protocol)) {
+          if (isNotNullAndUndef(protocol)) {
               URI += protocol;
           }
-          if (isNotNull(protocol)) {
+          if (isNotNullAndUndef(protocol)) {
               URI += '//';
           }
-          if (isNotNull(username)) {
+          if (isNotNullAndUndef(username)) {
               URI += username;
           }
-          if (isNotNull(password)) {
+          if (isNotNullAndUndef(password)) {
               URI += ':' + password;
           }
-          if (isNotNull(username) || isNotNull(password)) {
+          if (isNotNullAndUndef(username) || isNotNullAndUndef(password)) {
               URI += '@';
           }
-          if (isNotNull(hostname)) {
+          if (isNotNullAndUndef(hostname)) {
               URI += hostname;
           }
-          if (isNotNull(port)) {
+          if (isNotNullAndUndef(port)) {
               URI += ':' + port;
           }
           URI += context.pathname + context.search + context.hash;
