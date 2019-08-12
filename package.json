@@ -22,7 +22,7 @@
   },
   "homepage": "https://github.com/nuintun/uri#readme",
   "devDependencies": {
-    "terser": "^4.0.0",
+    "terser": "^4.1.4",
     "rollup": "^1.15.6",
     "typescript": "^3.5.2",
     "rollup-plugin-typescript2": "^0.21.2"
