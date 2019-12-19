@@ -33,7 +33,7 @@ async function build(inputOptions, outputOptions) {
 
   const minify = terser.minify(
     { 'URI.js': (await fs.readFile(path.resolve(file))).toString() },
-    { ie8: true, mangle: { eval: true }, sourceMap: { url: path.basename(map) } }
+    { ie8: true, mangle: { eval: true }, sourceMap: { url: path.basename(map) }, output: { comments: false } }
   );
 
   await fs.outputFile(min, outputOptions.banner + minify.code);
