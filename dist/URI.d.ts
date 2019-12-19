@@ -29,13 +29,13 @@ export default class URI {
      * @method get
      * @returns {string}
      */
-    readonly search: string;
+    get search(): string;
     /**
      * @property hash
      * @method get
      * @returns {string}
      */
-    readonly hash: string;
+    get hash(): string;
     /**
      * @method toURI
      * @returns {string}

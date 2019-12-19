@@ -11,7 +11,7 @@
   typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
   typeof define === 'function' && define.amd ? define('URI', factory) :
   (global = global || self, global.URI = factory());
-}(this, function () { 'use strict';
+}(this, (function () { 'use strict';
 
   /**
    * @module URI
@@ -231,4 +231,4 @@
 
   return URI;
 
-}));
+})));
