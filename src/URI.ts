@@ -56,9 +56,9 @@ function decode(value: string | null): string | null {
   return decodeURIComponent(value);
 }
 
-type ParamValue = string | string[] | null;
+export type ParamValue = string | string[] | null;
 
-interface ParseResult {
+export interface ParseResult {
   [key: string]: ParamValue;
 }
 

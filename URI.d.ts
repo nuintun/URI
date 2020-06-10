@@ -3,8 +3,8 @@
  * @license MIT
  * @version 2018/03/28
  */
-declare type ParamValue = string | string[] | null;
-interface ParseResult {
+export declare type ParamValue = string | string[] | null;
+export interface ParseResult {
     [key: string]: ParamValue;
 }
 /**
@@ -47,4 +47,3 @@ export default class URI {
      */
     toString(): string;
 }
-export {};
