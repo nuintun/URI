@@ -79,12 +79,12 @@ function parse(search: string): ParseResult {
       const matched: string[] | null = PARSE_QUERY_REGEX.exec(search);
 
       if (matched) {
-        const key: string = decode(matched[1] || '');
-        const value: string | null = decode(normalize(matched[2]));
+        const key: string = decode(matched[1] || '') as string;
+        const value: string = decode(normalize(matched[2])) as string;
 
         if (query.hasOwnProperty(key)) {
           if (!Array.isArray(query[key])) {
-            query[key] = [query[key] as string | null];
+            query[key] = [query[key] as string];
           }
 
           (query[key] as string[]).push(value);
@@ -106,7 +106,7 @@ function parse(search: string): ParseResult {
  * @param {string} prefix
  * @returns {string}
  */
-function stringify(query: Object, prefix: string): string {
+function stringify(query: { [key: string]: any }, prefix: string): string {
   let search: string = '';
 
   for (let key in query) {
@@ -114,7 +114,7 @@ function stringify(query: Object, prefix: string): string {
       const value: ParamValue = query[key];
 
       // Encode key
-      key = encode(key);
+      key = encode(key) as string;
 
       if (Array.isArray(value)) {
         value.forEach(item => {

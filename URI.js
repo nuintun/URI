@@ -1,5 +1,5 @@
 /**
- * @module URI
+ * @module uri
  * @license MIT
  * @version 0.0.1
  * @author nuintun
@@ -9,7 +9,7 @@
 
 (function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
-  typeof define === 'function' && define.amd ? define('URI', factory) :
+  typeof define === 'function' && define.amd ? define(factory) :
   (global = global || self, global.URI = factory());
 }(this, (function () { 'use strict';
 
@@ -168,7 +168,7 @@
           get: function () {
               return stringify(this.query, '?');
           },
-          enumerable: true,
+          enumerable: false,
           configurable: true
       });
       Object.defineProperty(URI.prototype, "hash", {
@@ -180,7 +180,7 @@
           get: function () {
               return stringify(this.fragment, '#');
           },
-          enumerable: true,
+          enumerable: false,
           configurable: true
       });
       /**

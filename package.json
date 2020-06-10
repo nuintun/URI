@@ -2,8 +2,8 @@
   "name": "uri",
   "version": "0.0.1",
   "description": "A simple WHATWG URI parser.",
-  "main": "./dist/URI.js",
-  "types": "./dist/URI.d.ts",
+  "main": "URI.js",
+  "types": "URI.d.ts",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/nuintun/uri.git"
@@ -21,10 +21,14 @@
     "url": "https://github.com/nuintun/uri/issues"
   },
   "homepage": "https://github.com/nuintun/uri#readme",
+  "scripts": {
+    "prepublishOnly": "npm run build",
+    "build": "rollup -c rollup.config.js"
+  },
   "devDependencies": {
-    "terser": "^4.4.3",
-    "rollup": "^1.27.14",
-    "typescript": "^3.7.4",
-    "rollup-plugin-typescript2": "^0.25.3"
+    "rimraf": "^3.0.2",
+    "rollup": "^2.15.0",
+    "typescript": "^3.9.5",
+    "rollup-plugin-typescript2": "^0.27.1"
   }
 }

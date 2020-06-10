@@ -1,16 +1,23 @@
 {
-  "compileOnSave": false,
   "compilerOptions": {
-    "newLine": "LF",
     "pretty": true,
-    "target": "es5",
-    "module": "es6",
-    "sourceMap": false,
+    "newLine": "LF",
+    "target": "ES5",
+    "module": "ESNext",
     "declaration": true,
+    "alwaysStrict": true,
+    "noImplicitAny": true,
+    "importHelpers": true,
     "noUnusedLocals": true,
-    "listEmittedFiles": true,
-    "noUnusedParameters": true,
-    "allowSyntheticDefaultImports": true
+    "removeComments": false,
+    "esModuleInterop": true,
+    "strictNullChecks": true,
+    "moduleResolution": "Node",
+    "noUnusedParameters": false,
+    "experimentalDecorators": true,
+    "lib": ["ESNext", "ScriptHost", "DOM"],
+    "forceConsistentCasingInFileNames": true
   },
+  "include": ["src/**/*"],
   "exclude": ["node_modules"]
 }
