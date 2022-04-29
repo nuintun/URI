@@ -98,7 +98,7 @@ function parse(search: string): ParseResult {
 
 /**
  * @function stringify
- * @param param
+ * @param query
  * @param prefix
  */
 function stringify(query: ParseResult, prefix: string): string {
