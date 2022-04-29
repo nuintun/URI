@@ -1,6 +1,7 @@
 # http://editorconfig.org
 root = true
 
+# Default files
 [*]
 indent_size = 2
 charset = utf-8
@@ -9,27 +10,27 @@ indent_style = space
 insert_final_newline = true
 trim_trailing_whitespace = true
 
-# Use 4 spaces for the Python files
+# Python files
 [*.py]
 indent_size = 4
-max_line_length = 80
 
-# The JSON files contain newlines inconsistently
-[*.json]
-insert_final_newline = false
-
-# Minified JavaScript files shouldn't be changed
-[*.min.js]
-indent_style = false
-insert_final_newline = false
-
-# Makefiles always use tabs for indentation
+# Makefile files
 [Makefile]
 indent_style = tab
 
-# Batch files use tabs for indentation
-[*.bat]
-indent_style = tab
+# Minified files
+[*.min.*]
+indent_style = false
+insert_final_newline = false
 
-[*.md]
-trim_trailing_whitespace = false
+# NPM package files
+[package.json]
+insert_final_newline = false
+
+# Typescript configure files
+[tsconfig.json]
+insert_final_newline = false
+
+# VSCode setting files
+[.vscode/**/*.json]
+insert_final_newline = false

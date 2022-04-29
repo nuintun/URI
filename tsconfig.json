@@ -1,23 +1,24 @@
 {
   "compilerOptions": {
+    "strict": true,
     "pretty": true,
-    "newLine": "LF",
-    "target": "ES5",
+    "newLine": "lf",
+    "target": "ES2015",
     "module": "ESNext",
-    "declaration": true,
-    "alwaysStrict": true,
-    "noImplicitAny": true,
+    "skipLibCheck": true,
     "importHelpers": true,
     "noUnusedLocals": true,
-    "removeComments": false,
     "esModuleInterop": true,
-    "strictNullChecks": true,
+    "resolveJsonModule": true,
     "moduleResolution": "Node",
-    "noUnusedParameters": false,
+    "noUnusedParameters": true,
     "experimentalDecorators": true,
-    "lib": ["ESNext", "ScriptHost", "DOM"],
     "forceConsistentCasingInFileNames": true
   },
-  "include": ["src/**/*"],
-  "exclude": ["node_modules"]
+  "include": [
+    "src/**/*"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
 }

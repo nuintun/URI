@@ -6,6 +6,7 @@
 
 // Parse query regex
 const PARSE_QUERY_REGEX: RegExp = /(?:^|&)([^&=]*)(?:=([^&]*))?/g;
+// prettier-ignore
 // Parse WHATWG URI regex
 //
 //     1.protocol                 2.user     3.pass     4.hostname         5.port      6.pathname 7.search 8.hash
@@ -16,8 +17,7 @@ const WHATWG_URI_REGEX: RegExp = /^([a-z0-9.+-]+:)?(?:\/\/)?(?:([^/:]*)(?::([^/]
 
 /**
  * @function normalize
- * @param {T} value
- * @returns {T|null}
+ * @param value
  */
 function normalize<T>(value: T): T | null {
   if (value == null) return null;
@@ -27,17 +27,15 @@ function normalize<T>(value: T): T | null {
 
 /**
  * @function isNotNullAndUndef
- * @param {any} value
- * @returns {boolean}
+ * @param value
  */
-function isNotNullAndUndef(value: any): boolean {
+function isNotNullAndUndef(value: unknown): boolean {
   return value != null;
 }
 
 /**
  * @function encode
- * @param {string|null} value
- * @returns {string|null}
+ * @param value
  */
 function encode(value: string | null): string | null {
   if (!value) return value;
@@ -47,8 +45,7 @@ function encode(value: string | null): string | null {
 
 /**
  * @function decode
- * @param {string|null} value
- * @returns {string|null}
+ * @param value
  */
 function decode(value: string | null): string | null {
   if (!value) return value;
@@ -64,8 +61,7 @@ export interface ParseResult {
 
 /**
  * @function parse
- * @param {string} search
- * @returns {{[key:string]:any}}
+ * @param search
  */
 function parse(search: string): ParseResult {
   const query: ParseResult = {};
@@ -76,11 +72,11 @@ function parse(search: string): ParseResult {
 
   if (search) {
     while (true) {
-      const matched: string[] | null = PARSE_QUERY_REGEX.exec(search);
+      const matched = PARSE_QUERY_REGEX.exec(search);
 
       if (matched) {
-        const key: string = decode(matched[1] || '') as string;
-        const value: string = decode(normalize(matched[2])) as string;
+        const key = decode(matched[1] || '') as string;
+        const value = decode(normalize(matched[2])) as string;
 
         if (query.hasOwnProperty(key)) {
           if (!Array.isArray(query[key])) {
@@ -102,12 +98,11 @@ function parse(search: string): ParseResult {
 
 /**
  * @function stringify
- * @param {Object} param
- * @param {string} prefix
- * @returns {string}
+ * @param param
+ * @param prefix
  */
 function stringify(query: { [key: string]: any }, prefix: string): string {
-  let search: string = '';
+  let search = '';
 
   for (let key in query) {
     if (query.hasOwnProperty(key)) {
@@ -141,22 +136,22 @@ function stringify(query: { [key: string]: any }, prefix: string): string {
  * @class URI
  */
 export default class URI {
-  public protocol: string | null;
-  public username: string | null;
-  public password: string | null;
-  public hostname: string | null;
-  public port: string | null;
-  public pathname: string | null;
-  public query: ParseResult;
-  public fragment: ParseResult;
+  public protocol!: string | null;
+  public username!: string | null;
+  public password!: string | null;
+  public hostname!: string | null;
+  public port!: string | null;
+  public pathname!: string | null;
+  public query!: ParseResult;
+  public fragment!: ParseResult;
 
   /**
    * @constructor
-   * @param {string} URI
+   * @param URI
    */
   constructor(URI: string) {
-    const context: URI = this;
-    const matched: string[] | null = WHATWG_URI_REGEX.exec(URI);
+    const context = this;
+    const matched = WHATWG_URI_REGEX.exec(URI);
 
     // Normalize URI
     if (!matched) {
@@ -190,7 +185,6 @@ export default class URI {
   /**
    * @property search
    * @method get
-   * @returns {string}
    */
   public get search(): string {
     return stringify(this.query, '?');
@@ -199,7 +193,6 @@ export default class URI {
   /**
    * @property hash
    * @method get
-   * @returns {string}
    */
   public get hash(): string {
     return stringify(this.fragment, '#');
@@ -207,16 +200,16 @@ export default class URI {
 
   /**
    * @method toURI
-   * @returns {string}
    */
   public toURI(): string {
-    let URI: string = '';
-    const context: URI = this;
-    const protocol: string | null = context.protocol;
-    const username: string | null = context.username;
-    const password: string | null = context.password;
-    const hostname: string | null = context.hostname;
-    const port: string | null = context.port;
+    let URI = '';
+
+    const context = this;
+    const protocol = context.protocol;
+    const username = context.username;
+    const password = context.password;
+    const hostname = context.hostname;
+    const port = context.port;
 
     if (isNotNullAndUndef(protocol)) {
       URI += protocol;
@@ -253,7 +246,6 @@ export default class URI {
 
   /**
    * @method toString
-   * @returns {string}
    */
   public toString(): string {
     return this.toURI();
