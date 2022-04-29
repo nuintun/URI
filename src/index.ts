@@ -101,12 +101,12 @@ function parse(search: string): ParseResult {
  * @param param
  * @param prefix
  */
-function stringify(query: { [key: string]: any }, prefix: string): string {
+function stringify(query: ParseResult, prefix: string): string {
   let search = '';
 
   for (let key in query) {
     if (query.hasOwnProperty(key)) {
-      const value: ParamValue = query[key];
+      const value = query[key];
 
       // Encode key
       key = encode(key) as string;
