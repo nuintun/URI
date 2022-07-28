@@ -42,7 +42,7 @@
     "tslib": "^2.4.0"
   },
   "devDependencies": {
-    "@rollup/plugin-typescript": "^8.3.2",
+    "@rollup/plugin-typescript": "^8.3.4",
     "@types/node": "^17.0.30",
     "magic-string": "^0.26.1",
     "prettier": "^2.6.2",
