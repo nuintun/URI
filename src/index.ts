@@ -4,6 +4,10 @@
  * @version 2018/03/28
  */
 
+export interface ParseResult {
+  [key: string]: string | string[] | null;
+}
+
 // Parse query regex
 const PARSE_QUERY_REGEX: RegExp = /(?:^|&)([^&=]*)(?:=([^&]*))?/g;
 // prettier-ignore
@@ -21,14 +25,6 @@ const WHATWG_URI_REGEX: RegExp = /^([a-z0-9.+-]+:)?(?:\/\/)?(?:([^/:]*)(?::([^/]
  */
 function normalize<T>(value: T): T | null {
   return value != null ? value : null;
-}
-
-/**
- * @function isNotNullAndUndef
- * @param value
- */
-function isNotNullAndUndef(value: unknown): boolean {
-  return value != null;
 }
 
 /**
@@ -51,10 +47,12 @@ function decode(value: string | null): string | null {
   return decodeURIComponent(value);
 }
 
-export type ParamValue = string | string[] | null;
-
-export interface ParseResult {
-  [key: string]: ParamValue;
+/**
+ * @function isNotNullAndUndef
+ * @param value
+ */
+function isNotNullAndUndef(value: unknown): boolean {
+  return value != null;
 }
 
 /**
