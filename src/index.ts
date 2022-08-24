@@ -20,9 +20,7 @@ const WHATWG_URI_REGEX: RegExp = /^([a-z0-9.+-]+:)?(?:\/\/)?(?:([^/:]*)(?::([^/]
  * @param value
  */
 function normalize<T>(value: T): T | null {
-  if (value == null) return null;
-
-  return value;
+  return value != null ? value : null;
 }
 
 /**
