@@ -20,11 +20,19 @@ const PARSE_QUERY_REGEX: RegExp = /(?:^|&)([^&=]*)(?:=([^&]*))?/g;
 const WHATWG_URI_REGEX: RegExp = /^([a-z0-9.+-]+:)?(?:\/\/)?(?:([^/:]*)(?::([^/]*))?@)?([^:?#/]*)(?::(\d*(?=$|[?#/])))?([^?#]*)(\?[^#]*)?(#.*)?/i;
 
 /**
+ * @function isNonNullable
+ * @param value
+ */
+function isNonNullable(value: unknown): boolean {
+  return value != null;
+}
+
+/**
  * @function normalize
  * @param value
  */
 function normalize<T>(value: T): T | null {
-  return value != null ? value : null;
+  return isNonNullable(value) ? value : null;
 }
 
 /**
@@ -45,14 +53,6 @@ function decode(value: string | null): string | null {
   if (!value) return value;
 
   return decodeURIComponent(value);
-}
-
-/**
- * @function isNotNullAndUndef
- * @param value
- */
-function isNotNullAndUndef(value: unknown): boolean {
-  return value != null;
 }
 
 /**
@@ -111,14 +111,14 @@ function stringify(query: ParseResult, prefix: string): string {
         value.forEach(item => {
           search += '&' + key;
 
-          if (isNotNullAndUndef(item)) {
+          if (isNonNullable(item)) {
             search += '=' + encode(item);
           }
         });
       } else {
         search += '&' + key;
 
-        if (isNotNullAndUndef(value)) {
+        if (isNonNullable(value)) {
           search += '=' + encode(value);
         }
       }
@@ -207,31 +207,31 @@ export default class URI {
     const hostname = context.hostname;
     const port = context.port;
 
-    if (isNotNullAndUndef(protocol)) {
+    if (isNonNullable(protocol)) {
       URI += protocol;
     }
 
-    if (isNotNullAndUndef(protocol)) {
+    if (isNonNullable(protocol)) {
       URI += '//';
     }
 
-    if (isNotNullAndUndef(username)) {
+    if (isNonNullable(username)) {
       URI += username;
     }
 
-    if (isNotNullAndUndef(password)) {
+    if (isNonNullable(password)) {
       URI += ':' + password;
     }
 
-    if (isNotNullAndUndef(username) || isNotNullAndUndef(password)) {
+    if (isNonNullable(username) || isNonNullable(password)) {
       URI += '@';
     }
 
-    if (isNotNullAndUndef(hostname)) {
+    if (isNonNullable(hostname)) {
       URI += hostname;
     }
 
-    if (isNotNullAndUndef(port)) {
+    if (isNonNullable(port)) {
       URI += ':' + port;
     }
 
