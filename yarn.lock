@@ -24,10 +24,10 @@
   resolved "https://registry.yarnpkg.com/@types/estree/-/estree-0.0.39.tgz#e177e699ee1b8c22d23174caaa7422644389509f"
   integrity sha512-EYNwp3bU+98cpU4lAWYYL7Zz+2gryWH1qbdDTidVd6hkiR6weksdbMadyXKXNPEkQFhXM+hVO9ZygomHXp+AIw==
 
-"@types/node@^18.7.12":
-  version "18.7.12"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-18.7.12.tgz#18caab95fbcd03573661d1d0e709093ba8cb7682"
-  integrity sha512-caqFX7GwvZ4KLnhpI9CfiMkgHKp6kvFAIgpkha0cjO7bAQvB6dWe+q3fTHmm7fQvv59pd4tPj77nriq2M6U2dw==
+"@types/node@^18.11.1":
+  version "18.11.1"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-18.11.1.tgz#8d1ba9149a44379bb467d045157651be07e098d9"
+  integrity sha512-bB9ptqoW+pKBjs0kJX/zUSUWCOWAyYXQsOgY6+HIEbnjYike3CAeDhxlQ4kDjCm/S9SRV66F49HY7gwJz0oWMg==
 
 balanced-match@^1.0.0:
   version "1.0.2"
