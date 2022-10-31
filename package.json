@@ -39,7 +39,7 @@
     "build:typings": "tsc --declaration --emitDeclarationOnly --declarationDir typings"
   },
   "dependencies": {
-    "tslib": "^2.4.0"
+    "tslib": "^2.4.1"
   },
   "devDependencies": {
     "@rollup/plugin-typescript": "^8.4.0",
