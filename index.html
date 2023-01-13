@@ -1,23 +1,27 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>Document</title>
     <script src="./dist/URI.js"></script>
   </head>
-  <body style="text-align: center; padding: 66px 0 0;">
+  <body style="text-align: center; padding: 66px 0 0">
     <a id="link" href="https://user:pass@sub.host.com:8080/p/a/t/h?query=string#hash">Link</a>
     <script>
       var link = document.getElementById('link');
       var x = new URI(link.getAttribute('href'));
 
-      link.addEventListener('click', function(e) {
-        e.preventDefault();
+      link.addEventListener(
+        'click',
+        function (e) {
+          e.preventDefault();
 
-        console.dir(x.toURI());
-      }, false);
+          console.dir(x.toURI());
+        },
+        false
+      );
     </script>
   </body>
 </html>

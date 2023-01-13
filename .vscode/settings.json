@@ -36,12 +36,7 @@
     "**/bower_components/**"
   ],
   "todo-tree.general.statusBar": "total",
-  "todo-tree.general.tags": [
-    "BUG",
-    "HACK",
-    "FIXME",
-    "TODO"
-  ],
+  "todo-tree.general.tags": ["BUG", "HACK", "FIXME", "TODO"],
   "todo-tree.highlights.customHighlight": {
     "BUG": {
       "borderRadius": 0,
@@ -62,7 +57,7 @@
       "borderRadius": 0,
       "fontStyle": "italic",
       "type": "text-and-comment"
-    },
+    }
   },
   "editor.formatOnSave": true,
   "todo-tree.highlights.useColourScheme": true,
