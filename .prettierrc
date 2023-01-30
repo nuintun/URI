@@ -5,7 +5,22 @@
   "trailingComma": "none",
   "overrides": [
     {
-      "files": ["*.css", "*.less", "*.scss"],
+      "files": [
+        "*.json",
+        "*.jsonc",
+        ".prettierrc"
+      ],
+      "options": {
+        "parser": "json-stringify"
+      }
+    },
+    {
+      "files": [
+        "*.css",
+        "*.less",
+        "*.sass",
+        "*.scss"
+      ],
       "options": {
         "singleQuote": false
       }
