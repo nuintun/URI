@@ -43,12 +43,12 @@
     "tslib": "^2.5.0"
   },
   "devDependencies": {
-    "@rollup/plugin-typescript": "^11.0.0",
-    "@types/node": "^18.15.5",
+    "@rollup/plugin-typescript": "^11.1.0",
+    "@types/node": "^18.15.11",
     "magic-string": "^0.30.0",
-    "prettier": "^2.8.5",
-    "rimraf": "^4.4.0",
-    "rollup": "^3.20.0",
-    "typescript": "^5.0.2"
+    "prettier": "^2.8.7",
+    "rimraf": "^5.0.0",
+    "rollup": "^3.20.2",
+    "typescript": "^5.0.4"
   }
 }
