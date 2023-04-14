@@ -36,16 +36,6 @@ function normalize(value?: string | null): string | null {
 }
 
 /**
- * @function encode
- * @param value
- */
-function encode(value: string | null): string | null {
-  if (!value) return value;
-
-  return encodeURIComponent(value);
-}
-
-/**
  * @function decode
  * @param value
  */
@@ -53,6 +43,14 @@ function decode(value: string | null): string | null {
   if (!value) return value;
 
   return decodeURIComponent(value);
+}
+
+/**
+ * @function encode
+ * @param value
+ */
+function encode(value: string): string {
+  return encodeURIComponent(value);
 }
 
 /**
@@ -105,14 +103,14 @@ function stringify(query: ParseResult, prefix: string): string {
   const entries = Object.entries(query);
 
   for (const [key, value] of entries) {
-    const name = encode(key) as string;
+    const name = encode(key);
 
     if (Array.isArray(value)) {
-      value.forEach(item => {
+      value.forEach(value => {
         search += `&${name}`;
 
-        if (isNonNullable(item)) {
-          search += `=${encode(item)}`;
+        if (isNonNullable(value)) {
+          search += `=${encode(value)}`;
         }
       });
     } else {
