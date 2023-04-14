@@ -23,7 +23,7 @@ const WHATWG_URI_REGEX: RegExp = /^([a-z0-9.+-]+:)?(?:\/\/)?(?:([^/:]*)(?::([^/]
  * @function isNonNullable
  * @param value
  */
-function isNonNullable(value: unknown): boolean {
+function isNonNullable(value?: string | null): value is string {
   return value != null;
 }
 
@@ -31,7 +31,7 @@ function isNonNullable(value: unknown): boolean {
  * @function normalize
  * @param value
  */
-function normalize<T>(value: T): T | null {
+function normalize(value?: string | null): string | null {
   return isNonNullable(value) ? value : null;
 }
 
