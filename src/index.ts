@@ -5,7 +5,7 @@
  */
 
 export interface ParseResult {
-  [key: string]: string | string[] | null;
+  [key: string]: string | null | (string | null)[];
 }
 
 // Parse query regex
@@ -71,15 +71,17 @@ function parse(search: string): ParseResult {
       const matched = PARSE_QUERY_REGEX.exec(search);
 
       if (matched) {
-        const key = decode(matched[1] || '') as string;
-        const value = decode(normalize(matched[2])) as string;
+        const key = decode(matched[1]) as string;
+        const value = decode(normalize(matched[2]));
 
         if (query.hasOwnProperty(key)) {
-          if (!Array.isArray(query[key])) {
-            query[key] = [query[key] as string];
-          }
+          const values = query[key];
 
-          (query[key] as string[]).push(value);
+          if (Array.isArray(values)) {
+            values.push(value);
+          } else {
+            query[key] = [values, value];
+          }
         } else {
           query[key] = value;
         }
@@ -100,27 +102,24 @@ function parse(search: string): ParseResult {
 function stringify(query: ParseResult, prefix: string): string {
   let search = '';
 
-  for (let key in query) {
-    if (query.hasOwnProperty(key)) {
-      const value = query[key];
+  const entries = Object.entries(query);
 
-      // Encode key
-      key = encode(key) as string;
+  for (const [key, value] of entries) {
+    const name = encode(key) as string;
 
-      if (Array.isArray(value)) {
-        value.forEach(item => {
-          search += `&${key}`;
+    if (Array.isArray(value)) {
+      value.forEach(item => {
+        search += `&${name}`;
 
-          if (isNonNullable(item)) {
-            search += '=' + encode(item);
-          }
-        });
-      } else {
-        search += `&${key}`;
-
-        if (isNonNullable(value)) {
-          search += `=${encode(value)}`;
+        if (isNonNullable(item)) {
+          search += `=${encode(item)}`;
         }
+      });
+    } else {
+      search += `&${name}`;
+
+      if (isNonNullable(value)) {
+        search += `=${encode(value)}`;
       }
     }
   }
