@@ -31,6 +31,8 @@ function isNonNullable(value?: string | null): value is string {
  * @function normalize
  * @param value
  */
+function normalize(value?: null): null;
+function normalize(value: string): string;
 function normalize(value?: string | null): string | null {
   return isNonNullable(value) ? value : null;
 }
@@ -39,6 +41,8 @@ function normalize(value?: string | null): string | null {
  * @function decode
  * @param value
  */
+function decode(value: null): null;
+function decode(value: string): string;
 function decode(value: string | null): string | null {
   if (!value) return value;
 
@@ -49,6 +53,7 @@ function decode(value: string | null): string | null {
  * @function encode
  * @param value
  */
+
 function encode(value: string): string {
   return encodeURIComponent(value);
 }
@@ -69,7 +74,7 @@ function parse(search: string): ParseResult {
       const matched = PARSE_QUERY_REGEX.exec(search);
 
       if (matched) {
-        const key = decode(matched[1]) as string;
+        const key = decode(matched[1]);
         const value = decode(normalize(matched[2]));
 
         if (query.hasOwnProperty(key)) {
