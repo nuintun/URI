@@ -109,17 +109,17 @@ function stringify(query: ParseResult, prefix: string): string {
 
       if (Array.isArray(value)) {
         value.forEach(item => {
-          search += '&' + key;
+          search += `&${key}`;
 
           if (isNonNullable(item)) {
             search += '=' + encode(item);
           }
         });
       } else {
-        search += '&' + key;
+        search += `&${key}`;
 
         if (isNonNullable(value)) {
-          search += '=' + encode(value);
+          search += `=${encode(value)}`;
         }
       }
     }
@@ -220,7 +220,7 @@ export default class URI {
     }
 
     if (isNonNullable(password)) {
-      URI += ':' + password;
+      URI += `:${password}`;
     }
 
     if (isNonNullable(username) || isNonNullable(password)) {
@@ -232,7 +232,7 @@ export default class URI {
     }
 
     if (isNonNullable(port)) {
-      URI += ':' + port;
+      URI += `:${port}`;
     }
 
     URI += context.pathname + context.search + context.hash;
