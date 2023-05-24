@@ -4,4 +4,4 @@
 
 import { rimraf } from 'rimraf';
 
-rimraf.sync(['cjs', 'esm', 'typings']);
+rimraf.sync(['cjs', 'esm', 'types']);

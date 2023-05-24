@@ -5,11 +5,16 @@
   "type": "module",
   "main": "cjs/index.js",
   "module": "esm/index.js",
-  "typings": "typings/index.d.ts",
+  "types": "types/index.d.ts",
+  "exports": {
+    "import": "./esm/index.js",
+    "require": "./cjs/index.cjs",
+    "types": "./types/index.d.ts"
+  },
   "files": [
     "cjs",
     "esm",
-    "typings"
+    "types"
   ],
   "repository": {
     "type": "git",
@@ -30,14 +35,15 @@
   "homepage": "https://github.com/nuintun/uri#readme",
   "scripts": {
     "lint": "tsc --noEmit",
+    "test": "node tests/index.js",
     "clean": "node tools/clean.js",
     "format": "prettier --write .",
     "prepublishOnly": "npm run build",
     "build:cjs": "rollup -c tools/rollup.cjs.js",
     "build:esm": "rollup -c tools/rollup.esm.js",
     "build": "npm run clean && npm run build:main && npm run format",
-    "build:main": "npm run build:cjs && npm run build:esm && npm run build:typings",
-    "build:typings": "tsc --declaration --emitDeclarationOnly --declarationDir typings"
+    "build:main": "npm run build:cjs && npm run build:esm && npm run build:types",
+    "build:types": "tsc --declaration --emitDeclarationOnly --declarationDir types"
   },
   "dependencies": {
     "tslib": "^2.5.2"

@@ -5,23 +5,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>Document</title>
-    <script src="./dist/URI.js"></script>
   </head>
   <body style="text-align: center; padding: 66px 0 0">
     <a id="link" href="https://user:pass@sub.host.com:8080/p/a/t/h?query=string#hash">Link</a>
-    <script>
-      var link = document.getElementById('link');
-      var x = new URI(link.getAttribute('href'));
+    <script type="module">
+      import URI from '../esm/index.js';
 
-      link.addEventListener(
-        'click',
-        function (e) {
-          e.preventDefault();
+      const link = document.getElementById('link');
+      const href = new URI(link.getAttribute('href'));
 
-          console.dir(x.toURI());
-        },
-        false
-      );
+      const onClick = event => {
+        event.preventDefault();
+
+        console.dir(href, href.toURI());
+      };
+
+      link.addEventListener('click', onClick, false);
     </script>
   </body>
 </html>
