@@ -40,15 +40,15 @@
     "build:typings": "tsc --declaration --emitDeclarationOnly --declarationDir typings"
   },
   "dependencies": {
-    "tslib": "^2.5.0"
+    "tslib": "^2.5.2"
   },
   "devDependencies": {
-    "@rollup/plugin-typescript": "^11.1.0",
-    "@types/node": "^18.15.11",
+    "@rollup/plugin-typescript": "^11.1.1",
+    "@types/node": "^20.2.3",
     "magic-string": "^0.30.0",
-    "prettier": "^2.8.7",
-    "rimraf": "^5.0.0",
-    "rollup": "^3.20.2",
+    "prettier": "^2.8.8",
+    "rimraf": "^5.0.1",
+    "rollup": "^3.23.0",
     "typescript": "^5.0.4"
   }
 }
