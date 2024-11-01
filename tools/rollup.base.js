@@ -2,7 +2,7 @@
  * @module rollup.base
  */
 
-import { createRequire } from 'module';
+import { createRequire } from 'node:module';
 import treeShake from './plugins/tree-shake.js';
 import typescript from '@rollup/plugin-typescript';
 
