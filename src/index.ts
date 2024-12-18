@@ -133,7 +133,7 @@ function stringify(query: ParseResult, prefix: string): string {
 /**
  * @class URI
  */
-export default class URI {
+export class URI {
   public protocol!: string | null;
   public username!: string | null;
   public password!: string | null;

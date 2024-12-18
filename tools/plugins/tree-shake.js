@@ -6,7 +6,7 @@ import MagicString from 'magic-string';
 
 /***
  * @function treeShake
- * @description Fixed tree shaking for typescript and rollup preserve modules
+ * @description Fixed tree shaking for typescript and rollup preserve modules.
  * @return {import('rollup').Plugin}
  */
 export default function treeShake() {
@@ -16,7 +16,7 @@ export default function treeShake() {
       const files = Object.entries(bundle);
 
       for (const [, file] of files) {
-        if (!file.isAsset) {
+        if (file.type !== 'asset') {
           const code = new MagicString(file.code);
 
           this.parse(file.code, {
