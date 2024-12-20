@@ -1,6 +1,6 @@
 {
-  "name": "uri",
-  "version": "0.0.1",
+  "name": "@nuintun/uri",
+  "version": "0.1.0",
   "description": "A simple WHATWG URI parser.",
   "type": "module",
   "sideEffects": false,
