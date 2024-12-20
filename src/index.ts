@@ -1,7 +1,6 @@
 /**
  * @module URI
  * @license MIT
- * @version 2018/03/28
  */
 
 export interface ParseResult {

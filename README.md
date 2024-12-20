@@ -10,6 +10,54 @@
 > [![Side Effect][side-effect-image]][bundle-phobia-url]
 > [![License][license-image]][license-url]
 
+```ts
+/**
+ * @module URI
+ * @license MIT
+ */
+
+export interface ParseResult {
+  [key: string]: string | null | (string | null)[];
+}
+
+/**
+ * @class URI
+ */
+export declare class URI {
+  protocol: string | null;
+  username: string | null;
+  password: string | null;
+  hostname: string | null;
+  port: string | null;
+  pathname: string | null;
+  query: ParseResult;
+  fragment: ParseResult;
+  /**
+   * @constructor
+   * @param URI
+   */
+  constructor(URI: string);
+  /**
+   * @property search
+   * @method get
+   */
+  get search(): string;
+  /**
+   * @property hash
+   * @method get
+   */
+  get hash(): string;
+  /**
+   * @method toURI
+   */
+  toURI(): string;
+  /**
+   * @method toString
+   */
+  toString(): string;
+}
+```
+
 [npm-image]: https://img.shields.io/npm/v/@nuintun/uri?style=flat-square
 [npm-url]: https://www.npmjs.org/package/@nuintun/uri
 [download-image]: https://img.shields.io/npm/dm/@nuintun/uri?style=flat-square
