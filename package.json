@@ -3,18 +3,16 @@
   "version": "0.0.1",
   "description": "A simple WHATWG URI parser.",
   "type": "module",
+  "sideEffects": false,
   "main": "cjs/index.js",
   "module": "esm/index.js",
-  "types": "types/index.d.ts",
   "exports": {
     "import": "./esm/index.js",
-    "require": "./cjs/index.cjs",
-    "types": "./types/index.d.ts"
+    "require": "./cjs/index.cjs"
   },
   "files": [
     "cjs",
-    "esm",
-    "types"
+    "esm"
   ],
   "repository": {
     "type": "git",
@@ -51,7 +49,7 @@
   "devDependencies": {
     "@rollup/plugin-typescript": "^12.1.2",
     "@types/node": "^22.10.2",
-    "dts-paths": "^1.0.1",
+    "dts-paths": "^1.0.3",
     "magic-string": "^0.30.17",
     "prettier": "^3.4.2",
     "rimraf": "^6.0.1",
