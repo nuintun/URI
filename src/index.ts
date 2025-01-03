@@ -133,21 +133,20 @@ function stringify(query: ParseResult, prefix: string): string {
  * @class URI
  */
 export class URI {
-  public protocol!: string | null;
-  public username!: string | null;
-  public password!: string | null;
-  public hostname!: string | null;
-  public port!: string | null;
-  public pathname!: string | null;
-  public query!: ParseResult;
-  public fragment!: ParseResult;
+  public protocol: string | null;
+  public username: string | null;
+  public password: string | null;
+  public hostname: string | null;
+  public port: string | null;
+  public pathname: string | null;
+  public query: ParseResult;
+  public fragment: ParseResult;
 
   /**
    * @constructor
    * @param URI
    */
   constructor(URI: string) {
-    const context = this;
     const matched = WHATWG_URI_REGEX.exec(URI);
 
     // Normalize URI
@@ -168,15 +167,14 @@ export class URI {
       hash
     ] = matched;
 
-    context.protocol = normalize(protocol);
-    context.username = normalize(username);
-    context.password = normalize(password);
-    context.hostname = normalize(hostname);
-    context.port = normalize(port);
-    context.pathname = normalize(pathname);
-
-    context.query = parse(search);
-    context.fragment = parse(hash);
+    this.protocol = normalize(protocol);
+    this.username = normalize(username);
+    this.password = normalize(password);
+    this.hostname = normalize(hostname);
+    this.port = normalize(port);
+    this.pathname = normalize(pathname);
+    this.query = parse(search);
+    this.fragment = parse(hash);
   }
 
   /**
