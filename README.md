@@ -15,16 +15,15 @@
  * @module URI
  * @license MIT
  */
-
 export interface ParseResult {
   [key: string]: string | null | (string | null)[];
 }
-
 /**
  * @class URI
  */
 export declare class URI {
   protocol: string | null;
+  slashes: string | null;
   username: string | null;
   password: string | null;
   hostname: string | null;
