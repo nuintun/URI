@@ -12,19 +12,11 @@ const PARSE_QUERY_REGEX: RegExp = /(?:^|&)([^&=]*)(?:=([^&]*))?/g;
 // prettier-ignore
 // Parse WHATWG URI regex
 //
-//     1.protocol                 2.user     3.pass     4.hostname         5.port      6.pathname 7.search 8.hash
-//          |                       |           |            |                |              |       |       |
-//   ---------------             --------    -------     ----------    ---------------   ----------------- -----
-// /^([a-z0-9.+-]+:)?(?:\/\/)?(?:([^/:]*)(?::([^/]*))?@)?([^:?#/]*)(?::(\d*(?=$|[?#/])))?([^?#]*)(\?[^#]*)?(#.*)?/i
-const WHATWG_URI_REGEX: RegExp = /^([a-z0-9.+-]+:)?(?:\/\/)?(?:([^/:]*)(?::([^/]*))?@)?([^:?#/]*)(?::(\d*(?=$|[?#/])))?([^?#]*)(\?[^#]*)?(#.*)?/i;
-
-/**
- * @function isNonNullable
- * @param value
- */
-function isNonNullable(value?: string | null): value is string {
-  return value != null;
-}
+//     1.protocol   2.slashes   3.user     4.pass      5.hostname        6.port      7.pathname 8.search 9.hash
+//          |          |          |           |            |                |             |         |      |
+//    -------------   ----      ------      -----       --------      -------------     ------   ------   ---
+// /^([a-z0-9.+-]+:)?(\/\/)?(?:([^/:]*)(?::([^/]*))?@)?([^:?#/]*)(?::(\d*(?=$|[?#/])))?([^?#]*)(\?[^#]*)?(#.*)?/i
+const WHATWG_URI_REGEX: RegExp = /^([a-z0-9.+-]+:)?(\/\/)?(?:([^/:]*)(?::([^/]*))?@)?([^:?#/]*)(?::(\d*(?=$|[?#/])))?([^?#]*)(\?[^#]*)?(#.*)?/i;
 
 /**
  * @function normalize
@@ -33,7 +25,7 @@ function isNonNullable(value?: string | null): value is string {
 function normalize(value?: null): null;
 function normalize(value: string): string;
 function normalize(value?: string | null): string | null {
-  return isNonNullable(value) ? value : null;
+  return value != null ? value : null;
 }
 
 /**
@@ -113,14 +105,14 @@ function stringify(query: ParseResult, prefix: string): string {
       value.forEach(value => {
         search += `&${name}`;
 
-        if (isNonNullable(value)) {
+        if (value != null) {
           search += `=${encode(value)}`;
         }
       });
     } else {
       search += `&${name}`;
 
-      if (isNonNullable(value)) {
+      if (value != null) {
         search += `=${encode(value)}`;
       }
     }
@@ -134,6 +126,7 @@ function stringify(query: ParseResult, prefix: string): string {
  */
 export class URI {
   public protocol: string | null;
+  public slashes: string | null;
   public username: string | null;
   public password: string | null;
   public hostname: string | null;
@@ -158,6 +151,7 @@ export class URI {
       ,
       // Matched
       protocol,
+      slashes,
       username,
       password,
       hostname,
@@ -168,6 +162,7 @@ export class URI {
     ] = matched;
 
     this.protocol = normalize(protocol);
+    this.slashes = normalize(slashes);
     this.username = normalize(username);
     this.password = normalize(password);
     this.hostname = normalize(hostname);
@@ -201,36 +196,35 @@ export class URI {
 
     const context = this;
     const protocol = context.protocol;
+    const slashes = context.slashes;
     const username = context.username;
     const password = context.password;
     const hostname = context.hostname;
     const port = context.port;
 
-    if (isNonNullable(protocol)) {
+    if (protocol != null) {
       URI += protocol;
     }
 
-    if (isNonNullable(protocol)) {
-      URI += '//';
+    if (slashes != null) {
+      URI += slashes;
     }
 
-    if (isNonNullable(username)) {
+    if (username != null) {
       URI += username;
-    }
 
-    if (isNonNullable(password)) {
-      URI += `:${password}`;
-    }
+      if (password != null) {
+        URI += `:${password}`;
+      }
 
-    if (isNonNullable(username) || isNonNullable(password)) {
       URI += '@';
     }
 
-    if (isNonNullable(hostname)) {
+    if (hostname != null) {
       URI += hostname;
     }
 
-    if (isNonNullable(port)) {
+    if (port != null) {
       URI += `:${port}`;
     }
 
