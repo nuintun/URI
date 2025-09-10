@@ -1,6 +1,6 @@
 {
   "name": "@nuintun/uri",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "A simple WHATWG URI parser.",
   "type": "module",
   "sideEffects": false,
@@ -49,10 +49,10 @@
   },
   "devDependencies": {
     "@rollup/plugin-typescript": "^12.1.4",
-    "dts-paths": "^1.1.11",
+    "dts-paths": "^1.1.12",
     "prettier": "^3.6.2",
     "rimraf": "^6.0.1",
-    "rollup": "^4.50.0",
+    "rollup": "^4.50.1",
     "typescript": "^5.9.2"
   }
 }
