@@ -17,7 +17,7 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/nuintun/uri.git"
+    "url": "git+https://github.com/nuintun/URI.git"
   },
   "keywords": [
     "URI",
@@ -29,9 +29,9 @@
   },
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/nuintun/uri/issues"
+    "url": "https://github.com/nuintun/URI/issues"
   },
-  "homepage": "https://github.com/nuintun/uri#readme",
+  "homepage": "https://github.com/nuintun/URI#readme",
   "scripts": {
     "lint": "tsc --noEmit",
     "test": "node tests/index.js",
