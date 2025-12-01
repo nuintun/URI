@@ -60,10 +60,10 @@ export declare class URI {
 [npm-image]: https://img.shields.io/npm/v/@nuintun/uri?style=flat-square
 [npm-url]: https://www.npmjs.org/package/@nuintun/uri
 [download-image]: https://img.shields.io/npm/dm/@nuintun/uri?style=flat-square
-[languages-image]: https://img.shields.io/github/languages/top/nuintun/uri?style=flat-square
-[github-url]: https://github.com/nuintun/uri
+[languages-image]: https://img.shields.io/github/languages/top/nuintun/URI?style=flat-square
+[github-url]: https://github.com/nuintun/URI
 [tree-shakeable-image]: https://img.shields.io/badge/tree--shakeable-true-brightgreen?style=flat-square
 [side-effect-image]: https://img.shields.io/badge/side--effect-free-brightgreen?style=flat-square
 [bundle-phobia-url]: https://bundlephobia.com/result?p=@nuintun/uri
-[license-image]: https://img.shields.io/github/license/nuintun/uri?style=flat-square
-[license-url]: https://github.com/nuintun/uri/blob/main/LICENSE
+[license-image]: https://img.shields.io/github/license/nuintun/URI?style=flat-square
+[license-url]: https://github.com/nuintun/URI/blob/main/LICENSE
