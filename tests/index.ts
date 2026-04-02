@@ -56,6 +56,25 @@ test('should parse and stringify IPv6 URI with auth', () => {
   assert.equal(uri.toURI(), source);
 });
 
+test('should parse and stringify IPv6 URI with zone id (RFC 6874)', () => {
+  const source = 'https://[fe80::1%25eth0]:443/hello';
+  const uri = new URI(source);
+
+  assert.equal(uri.hostname, '[fe80::1%25eth0]');
+  assert.equal(uri.port, '443');
+  assert.equal(uri.pathname, '/hello');
+  assert.equal(uri.toURI(), source);
+});
+
+test('should parse and stringify IPvFuture host (RFC 3986)', () => {
+  const source = 'https://[v1.fe80-zone]/hello';
+  const uri = new URI(source);
+
+  assert.equal(uri.hostname, '[v1.fe80-zone]');
+  assert.equal(uri.pathname, '/hello');
+  assert.equal(uri.toURI(), source);
+});
+
 test('should keep IPv4 behavior', () => {
   const source = 'https://user:pass@127.0.0.1:8080/hello?x=1#ok';
   const uri = new URI(source);
