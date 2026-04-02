@@ -1,11 +1,9 @@
 {
   "name": "@nuintun/uri",
-  "version": "0.2.5",
+  "version": "0.3.0",
   "description": "A simple WHATWG URI parser.",
   "type": "module",
   "sideEffects": false,
-  "main": "cjs/index.js",
-  "module": "esm/index.js",
   "exports": {
     ".": {
       "import": "./esm/index.js",
