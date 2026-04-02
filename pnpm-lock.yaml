@@ -19,8 +19,8 @@ importers:
         specifier: ^25.5.0
         version: 25.5.0
       dts-paths:
-        specifier: ^2.2.0
-        version: 2.2.0(typescript@6.0.2)
+        specifier: ^2.2.1
+        version: 2.2.1(typescript@6.0.2)
       prettier:
         specifier: ^3.8.1
         version: 3.8.1
@@ -200,8 +200,8 @@ packages:
     resolution: {integrity: sha512-VZznLgtwhn+Mact9tfiwx64fA9erHH/MCXEUfB/0bX/6Fz6ny5EGTXYltMocqg4xFAQZtnO3DHWWXi8RiuN7cQ==}
     engines: {node: 18 || 20 || >=22}
 
-  dts-paths@2.2.0:
-    resolution: {integrity: sha512-gNXKnAtb3iTCtE5AwIik2gdPJEgDVkh9xJxrtFJu2gdb3Iv1IpRxj4Z+iGIrqllPpAfgDlY9NA1bVOfxnh1NVw==}
+  dts-paths@2.2.1:
+    resolution: {integrity: sha512-ftfo1dMnp6FS/0BiEJm3AGo9DnrE0aw7X3WLPKUBwDVFbC4v5lgJIgsKgDmQRhBQdB3L0T0c7hSjneVAfo/XoQ==}
     peerDependencies:
       typescript: '>=5.0.0'
 
@@ -408,7 +408,7 @@ snapshots:
     dependencies:
       balanced-match: 4.0.4
 
-  dts-paths@2.2.0(typescript@6.0.2):
+  dts-paths@2.2.1(typescript@6.0.2):
     dependencies:
       magic-string: 0.30.21
       p-limit: 7.3.0

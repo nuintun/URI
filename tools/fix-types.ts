@@ -9,7 +9,7 @@ Promise.all([
     tsconfig: {
       extends: './tsconfig.json',
       compilerOptions: {
-        rootDir: './cjs',
+        rootDir: 'cjs',
         paths: {
           '/*': ['./cjs/*']
         }
@@ -23,7 +23,7 @@ Promise.all([
     tsconfig: {
       extends: './tsconfig.json',
       compilerOptions: {
-        rootDir: './esm',
+        rootDir: 'esm',
         paths: {
           '/*': ['./esm/*']
         }
