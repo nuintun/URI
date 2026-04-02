@@ -9,14 +9,14 @@ export interface ParseResult {
 
 // Parse query regex
 const PARSE_QUERY_REGEX: RegExp = /(?:^|&)([^&=]*)(?:=([^&]*))?/g;
-// prettier-ignore
 // Parse WHATWG URI regex
 //
 //     1.protocol   2.slashes   3.user     4.pass      5.hostname        6.port      7.pathname 8.search 9.hash
 //          |          |          |           |            |                |             |         |      |
 //    -------------   ----      ------      -----       --------      -------------     ------   ------   ---
 // /^([a-z0-9.+-]+:)?(\/\/)?(?:([^/:]*)(?::([^/]*))?@)?([^:?#/]*)(?::(\d*(?=$|[?#/])))?([^?#]*)(\?[^#]*)?(#.*)?/i
-const WHATWG_URI_REGEX: RegExp = /^([a-z0-9.+-]+:)?(\/\/)?(?:([^/:]*)(?::([^/]*))?@)?([^:?#/]*)(?::(\d*(?=$|[?#/])))?([^?#]*)(\?[^#]*)?(#.*)?/i;
+const WHATWG_URI_REGEX: RegExp =
+  /^([a-z0-9.+-]+:)?(\/\/)?(?:([^/:]*)(?::([^/]*))?@)?([^:?#/]*)(?::(\d*(?=$|[?#/])))?([^?#]*)(\?[^#]*)?(#.*)?/i;
 
 /**
  * @function normalize
