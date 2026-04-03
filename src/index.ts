@@ -9,14 +9,26 @@ export interface ParseResult {
 
 // Parse query regex
 const PARSE_QUERY_REGEX: RegExp = /(?:^|&)([^&=]*)(?:=([^&]*))?/g;
-// Parse WHATWG URI regex
+// Parse WHATWG URI regex (readable RFC 3986 / RFC 6874 composition)
 //
-//     1.protocol   2.slashes   3.user     4.pass      5.hostname        6.port      7.pathname 8.search 9.hash
-//          |          |          |           |            |                |             |         |      |
-//    -------------   ----      ------      -----       --------      -------------     ------   ------   ---
-// /^([a-z0-9.+-]+:)?(\/\/)?(?:([^/:]*)(?::([^/]*))?@)?([^:?#/]*)(?::(\d*(?=$|[?#/])))?([^?#]*)(\?[^#]*)?(#.*)?/i
-const WHATWG_URI_REGEX: RegExp =
-  /^([a-z0-9.+-]+:)?(\/\/)?(?:([^/:]*)(?::([^/]*))?@)?([^:?#/]*)(?::(\d*(?=$|[?#/])))?([^?#]*)(\?[^#]*)?(#.*)?/i;
+// Matched groups:
+//   1.protocol 2.slashes 3.user 4.pass 5.hostname 6.port 7.pathname 8.search 9.hash
+const PROTOCOL_PATTERN = '([a-z0-9.+-]+:)?';
+const SLASHES_PATTERN = '(//)?';
+const AUTH_PATTERN = '(?:([^/:]*)(?::([^/]*))?@)?';
+const IPV6_PATTERN = '[0-9a-f:.]+(?:%25[0-9a-z._~-]+)?';
+const IPVFUTURE_PATTERN = "v[0-9a-f]+\\.[0-9a-z._~!$&'()*+,;=:-]+";
+const IP_LITERAL_PATTERN = `\\[(?:${IPV6_PATTERN}|${IPVFUTURE_PATTERN})\\]`;
+const HOST_PATTERN = `(${IP_LITERAL_PATTERN}|[^:?#/\\[\\]]*)`;
+const PORT_PATTERN = '(?::(\\d*(?=$|[?#/])))?';
+const PATH_PATTERN = '([^?#]*)';
+const SEARCH_PATTERN = '(\\?[^#]*)?';
+const HASH_PATTERN = '(#.*)?';
+
+const WHATWG_URI_REGEX: RegExp = new RegExp(
+  `^${PROTOCOL_PATTERN}${SLASHES_PATTERN}${AUTH_PATTERN}${HOST_PATTERN}${PORT_PATTERN}${PATH_PATTERN}${SEARCH_PATTERN}${HASH_PATTERN}$`,
+  'i'
+);
 
 /**
  * @function normalize
