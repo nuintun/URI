@@ -50,7 +50,7 @@
   },
   "devDependencies": {
     "@rollup/plugin-typescript": "^12.3.0",
-    "@types/node": "^25.5.0",
+    "@types/node": "^25.5.2",
     "dts-paths": "^2.2.1",
     "prettier": "^3.8.1",
     "rimraf": "^6.1.3",
